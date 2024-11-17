@@ -1,0 +1,17 @@
+.brands-sub {
+  background-color: var(--primary-color);
+  height: 100px;
+  transition: 0.4s ease;
+  box-shadow: 0 0 5px rgb(0, 0, 0);
+}
+
+.brands-sub:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 5px rgb(126, 126, 126);
+}
+
+@media (max-width: 768px) {
+  .brands-sub {
+    height: 80px;
+  }
+}

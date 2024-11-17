@@ -1,0 +1,26 @@
+.carousel {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(10, 189, 255, 1) 45%,
+    rgba(210, 210, 210, 1) 87%
+  );
+  height: 350px;
+}
+
+.carousel-head {
+  font-size: 50px;
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    height: 180px;
+  }
+  .carousel-head {
+    font-size: 25px;
+  }
+  .carousel-para {
+    font-size: 13px;
+  }
+}

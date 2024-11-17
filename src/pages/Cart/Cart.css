@@ -1,0 +1,24 @@
+.cart {
+  padding-top: 130px;
+}
+
+.right3 {
+  border-radius: 20px;
+}
+.right3 h4 {
+  padding: 3px;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.checkout-btn {
+  background-color: var(--primary-color);
+}
+.checkout-btn:active {
+  background-color: rgb(199, 0, 0) !important;
+}
+
+@media (max-width: 768px) {
+  .cart {
+    padding-top: 95px;
+  }
+}

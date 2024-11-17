@@ -1,0 +1,34 @@
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.btn-close:focus,
+.btn-close:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.navbar-toggler {
+  border: 0 !important;
+}
+
+.search-input {
+  outline: 0;
+  box-shadow: 0px 0px 10px rgb(190, 190, 190);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.submit-button {
+  outline: 0;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 0px 10px rgb(190, 190, 190);
+  border: 0;
+}
+
+.offcanvas {
+  transition: 0.5s ease-in-out !important;
+}
+
+.authbutton {
+  box-shadow: 0 0 5px gray;
+}

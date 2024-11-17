@@ -1,0 +1,28 @@
+.product-image {
+  height: 160px;
+}
+.product-card {
+  height: 230px;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 5px rgb(180, 180, 180);
+  transition: 0.3s ease;
+}
+.product-card:hover {
+  box-shadow: 0 0 30px rgb(158, 158, 158);
+}
+
+.offer {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .product-image {
+    height: 100px;
+  }
+  .product-card {
+    height: 160px;
+  }
+  .offer {
+    font-size: 10px;
+  }
+}
