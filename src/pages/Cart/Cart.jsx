@@ -70,6 +70,7 @@ const Cart = () => {
       total: totalPrice,
       ...values,
       paymentMode: payment,
+      date: new Date().toISOString(),
     };
 
     if (!orderData.paymentMode) {

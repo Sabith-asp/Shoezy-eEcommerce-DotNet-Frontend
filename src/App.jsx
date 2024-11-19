@@ -8,7 +8,7 @@ function App() {
       <Toaster
         toastOptions={{
           style: {
-            marginTop: "80px", // Adjust the margin-top as needed
+            marginTop: "80px",
           },
         }}
       />
