@@ -19,7 +19,7 @@
 }
 
 .ellipsis {
-  height: 70px;
+  /* height: 70px; */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

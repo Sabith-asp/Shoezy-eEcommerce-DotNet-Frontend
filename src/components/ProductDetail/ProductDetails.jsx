@@ -83,10 +83,13 @@ const ProductDetails = () => {
           <div className="right1 p-0 text-start ms-0 ms-md-5 col-11 col-md-7  d-flex flex-column justify-content-center">
             <h2 className="fw-bold mt-3 mt-md-0">{productDetail.title}</h2>
             <div className="rating">
-              {productDetail.discount}
-              <FaStar className="text-warning ms-2 mb-1" />
+              <span className="fs-4 fw-bold text-danger">
+                {productDetail.discount}%
+              </span>{" "}
+              discount
             </div>
-            <h6 className="mt-3">{productDetail.brand}</h6>
+            <h5 className="mt-3">{productDetail.brand}</h5>
+            <h6 className="mt-3">Model: {productDetail.model}</h6>
             <h5 className="mt-3">Details:</h5>
             <p>{productDetail.description}</p>
             <h4 className="rate fw-bold">₹ {productDetail.price}</h4>
@@ -106,6 +109,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+      <hr />
       <RelatedItems product={relatedProduct} />
     </>
   );

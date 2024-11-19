@@ -8,7 +8,7 @@ import { DataContext } from "../../context/Provider";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
-  const { toggleAuth, setToggleAuth, setIsUserLogin, setId } =
+  const { toggleAuth, setToggleAuth, setIsUserLogin, setId, setCartCount } =
     useContext(DataContext);
 
   const navigate = useNavigate();

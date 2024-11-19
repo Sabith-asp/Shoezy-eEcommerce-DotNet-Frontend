@@ -9,6 +9,8 @@ import AuthLayout from "./components/AuthLayout/AuthLayout";
 import ProductDetails from "./components/ProductDetail/ProductDetails";
 import Cart from "./pages/Cart/Cart";
 import CartProvider from "./context/CartProvider";
+import OrderHistory from "./components/OrderHistory/OrderHistory";
+import Products from "./pages/Products/Products";
 
 const Routers = () => {
   return (
@@ -18,11 +20,12 @@ const Routers = () => {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
+              <Route path="/:category" element={<Products />} />
               <Route path="auth" element={<AuthLayout />} />
               <Route path="/product">
                 <Route path="detail/:id" element={<ProductDetails />} />
               </Route>
-
+              <Route path="/order-history" element={<OrderHistory />} />
               <Route path="cart" element={<Cart />} />
             </Route>
           </Routes>

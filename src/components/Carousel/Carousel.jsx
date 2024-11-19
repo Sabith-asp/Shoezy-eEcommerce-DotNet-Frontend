@@ -8,10 +8,10 @@ const Carousel = () => {
       <div className="row h-100">
         <div className="left col-6 h-100 d-flex align-items-center">
           <div className="ps-2 ps-md-5 ">
-            <h1 className="carousel-head fw-bolder text-white">Lorem </h1>
-            <h2 className="text-white fw-bold fs-6 fs-md-2">Lorem ipsum</h2>
+            <h1 className="carousel-head fw-bolder text-white">ShoesY </h1>
+            <h2 className="text-white fw-bold fs-6 fs-md-2">Shoe Haven</h2>
             <p className="carousel-para text-white fs-md-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Explore trendy, comfy shoes for every step!
             </p>
           </div>
         </div>

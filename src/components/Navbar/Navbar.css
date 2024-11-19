@@ -32,3 +32,22 @@
 .authbutton {
   box-shadow: 0 0 5px gray;
 }
+
+.cart-count {
+  background-color: red;
+  color: white;
+  padding: 3px;
+  top: -3px;
+  right: 12px;
+  font-size: 10px;
+  border-radius: 25px;
+}
+.cart-count-md {
+  background-color: red;
+  color: white;
+  padding: 3px;
+  top: -6px;
+  right: 5px;
+  font-size: 10px;
+  border-radius: 25px;
+}

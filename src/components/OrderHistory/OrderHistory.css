@@ -1,0 +1,19 @@
+.order {
+  padding-top: 95px;
+  padding-bottom: 180px;
+}
+
+.order-img {
+  height: 80px;
+  width: 80px;
+}
+
+.order-item {
+  box-shadow: 0 10px 10px rgb(184, 184, 184);
+  background-color: var(--primary-color);
+}
+@media (max-width: 768px) {
+  .order {
+    padding-top: 95px;
+  }
+}

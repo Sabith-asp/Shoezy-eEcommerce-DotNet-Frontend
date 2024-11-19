@@ -19,11 +19,14 @@ const ProductCard = ({ item }) => {
           </Link>
         </div>
         <div>
-          <div className="d-flex justify-content-between">
-            <p className="mb-0">₹ {item.price}</p>
-            <p className="mb-0">Rating</p>
+          <div className="product-title">
+            <h6 className="card-title mt-1">{item.title}</h6>
           </div>
-          <h6>{item.title}</h6>
+
+          <div className="d-flex justify-content-between">
+            <p className="mb-0 fw-bold">₹ {item.price}/-</p>
+            <p className="mb-0">{item.color}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -17,6 +17,66 @@
   background-color: rgb(199, 0, 0) !important;
 }
 
+/* 
+modal css */
+
+.modal-overlay {
+  transition: 1s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 500px;
+}
+
+.proceed-btn {
+  background-color: var(--primary-color);
+}
+.close-btn {
+  background-color: red;
+}
+
+.form-label {
+  top: -10px;
+  font-size: 13px;
+  left: 10px;
+  padding: 0 3px;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  overflow-y: auto;
+  height: 45vh;
+  border-radius: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) #ccc;
+}
+
+.payment-img {
+  height: 45px;
+  width: 70px;
+  box-shadow: 0 0 5px gray;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.payment-img.active {
+  box-shadow: 0 0 15px var(--primary-color);
+}
+.payment-img img {
+  object-fit: cover;
+}
+
 @media (max-width: 768px) {
   .cart {
     padding-top: 95px;

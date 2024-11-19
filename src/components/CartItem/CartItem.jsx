@@ -5,7 +5,8 @@ import { FaCirclePlus, FaCircleMinus } from "react-icons/fa6";
 import { CartContext } from "../../context/CartProvider";
 
 const CartItem = ({ product }) => {
-  const { removeFromCart, increaseQuantity } = useContext(CartContext);
+  const { removeFromCart, increaseQuantity, decreaseQuantity } =
+    useContext(CartContext);
 
   return (
     <div className="cart-item py-2 px-4 p-md-4 py-md-0 mb-3 bg-secondary-subtle">
@@ -15,13 +16,20 @@ const CartItem = ({ product }) => {
         </div>
         <div className="cart-item-details ms-2 col-6 ">
           <h5 className="ellipsis fw-bold">{product.title}</h5>
+          <p>{product.brand}</p>
           <div>
             <p>
-              ₹{product.price}
-              <span className="ms-2">₹ price</span>
+              ₹{product.price}/-
+              <span className="ms-2">₹{product.price * product.quantity}</span>
             </p>
             <div>
-              <button className="qty-button border-0 bg-transparent fs-4">
+              <button
+                onClick={() => {
+                  decreaseQuantity(product.id);
+                  console.log("clicked");
+                }}
+                className="qty-button border-0 bg-transparent fs-4"
+              >
                 <FaCircleMinus className="qty-button" />
               </button>
               <span>{product.quantity}</span>

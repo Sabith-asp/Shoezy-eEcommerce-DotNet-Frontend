@@ -15,6 +15,14 @@
   font-size: 12px;
 }
 
+.card-title {
+  font-size: 20px;
+}
+
+.product-title {
+  height: 25px;
+}
+
 @media (max-width: 768px) {
   .product-image {
     height: 100px;
@@ -24,5 +32,8 @@
   }
   .offer {
     font-size: 10px;
+  }
+  .card-title {
+    font-size: 12px;
   }
 }

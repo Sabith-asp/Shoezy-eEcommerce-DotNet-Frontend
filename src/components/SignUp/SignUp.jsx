@@ -27,9 +27,12 @@ const SignUp = () => {
   });
 
   const onSubmit = async (values, { resetForm }) => {
+    console.log("signup started");
+
     const existingUser = await axios.get("http://localhost:5000/users", {
       params: { email: values.email },
     });
+
     if (existingUser.data.length > 0) {
       toast.error("Email id is already exist. Login Now");
       resetForm();
@@ -46,7 +49,8 @@ const SignUp = () => {
       });
     };
     updateUser(values);
-    setIsLogin(!isLogin);
+    setToggleAuth(!toggleAuth);
+    // setIsUserLogin(!isUserLogin);
     toast.success("Sign Up Success Login Now!");
     resetForm();
   };

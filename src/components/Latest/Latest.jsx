@@ -24,19 +24,16 @@ const Latest = () => {
     };
     fetchLatest();
   }, []);
-  console.log(latestProducts);
 
   return (
     <section className="container-md p-0">
       <h1 className="fw-bold text-center my-2 my-md-3">LatesT</h1>
       <div className="row p-0 m-0">
-        {/* {latestProducts.map((item, index) => (
-          <ProductCard key={index} item={item} />
-        ))} */}
         {latestProducts.map((item) => (
           <ProductCard key={item.id} item={item} />
         ))}
       </div>
+      <hr />
     </section>
   );
 };

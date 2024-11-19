@@ -1,15 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { GiShoppingBag } from "react-icons/gi";
 import { DataContext } from "../../context/Provider";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartProvider";
 const Navbar = () => {
   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
+  const { cart, cartCount } = useContext(CartContext);
   const logout = () => {
     localStorage.removeItem("id");
     localStorage.removeItem("name");
     setIsUserLogin(!isUserLogin);
   };
+
   return (
     <nav className="navbar navbar-expand-md px-2 px-md-5 bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -23,8 +26,14 @@ const Navbar = () => {
             </button>
           )}
 
-          <button className="navbar-toggler px-3 py-0" type="button">
-            <GiShoppingBag />
+          <button
+            className=" position-relative navbar-toggler px-3 py-0"
+            type="button"
+          >
+            <Link to="/cart">
+              <GiShoppingBag />
+            </Link>
+            <span className="position-absolute cart-count">{cartCount}</span>
           </button>
           <button
             className="navbar-toggler p-0"
@@ -56,7 +65,7 @@ const Navbar = () => {
           </div>
           <div className="offcanvas-body align-items-center">
             <ul className="navbar-nav justify-content-center align-items-md-center flex-grow-1">
-              <li className="nav-item">
+              <li data-bs-dismiss="offcanvas" className="nav-item">
                 <Link
                   className="nav-link active"
                   to="/"
@@ -66,11 +75,12 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Link
-                </a>
+              <li data-bs-dismiss="offcanvas" className="nav-item">
+                <Link to="/All" className="nav-link" href="#">
+                  All
+                </Link>
               </li>
+
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -79,36 +89,41 @@ const Navbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  Brands
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
+                  <li data-bs-dismiss="offcanvas">
+                    <Link to="/Adidas" className="dropdown-item" href="#">
+                      Adidas
+                    </Link>
                   </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
+                  <li data-bs-dismiss="offcanvas">
+                    <Link to="/Nike" className="dropdown-item" href="#">
+                      Nike
+                    </Link>
                   </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
+                  <li data-bs-dismiss="offcanvas">
+                    <Link to="/Puma" className="dropdown-item" href="#">
+                      Puma
+                    </Link>
                   </li>
                 </ul>
               </li>
+              <li data-bs-dismiss="offcanvas" className="nav-item">
+                <Link to="/order-history" className="nav-link" href="#">
+                  Orders
+                </Link>
+              </li>
             </ul>
-            <button className="border-0 d-none d-md-flex float-end mx-3 mb-3 mb-md-0 m-0 bg-transparent">
+            <button className="border-0 position-relative d-none d-md-flex float-end mx-3 mb-3 mb-md-0 m-0 bg-transparent">
               <Link to="/cart">
                 <GiShoppingBag className="fs-3" />
+                <span className="position-absolute cart-count-md">
+                  {cartCount}
+                </span>
               </Link>
             </button>
-            <div>
+            {/* <div>
               <form className="d-flex mt-3 mt-md-0 w-100" role="search">
                 <input
                   className="search-input ps-3 p-1 w-75 border-0"
@@ -120,13 +135,14 @@ const Navbar = () => {
                   Search
                 </button>
               </form>
-            </div>
+            </div> */}
             {!isUserLogin ? (
               <button className="authbutton border-1 float-end mx-0 mx-md-3 my-3 rounded-pill px-3 py-1">
                 <Link to="/auth">Login</Link>
               </button>
             ) : (
               <button
+                data-bs-dismiss="offcanvas"
                 onClick={logout}
                 className="authbutton border-1 float-end mx-0 mx-md-3 my-3 rounded-pill px-3 py-1"
               >

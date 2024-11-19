@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+  const [cartCount, setCartCount] = useState(0);
   const [cart, setCart] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
@@ -27,6 +28,10 @@ const CartProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setCartCount(cart.length);
+  }, [cart]);
 
   const addToCart = async (product) => {
     const id_ = localStorage.getItem("id");
@@ -77,19 +82,72 @@ const CartProvider = ({ children }) => {
     if (!userId) return;
 
     try {
-      setCart((prevCart) => {
-        const updatedCart = prevCart.map((item) =>
+      const productResponse = await axios.get(
+        `http://localhost:5000/products/${id}`
+      );
+      const stockQty = productResponse.data.quantity;
+
+      const userResponse = await axios.get(
+        `http://localhost:5000/users/${userId}`
+      );
+      const userCart = userResponse.data.cart;
+      const currentItem = userCart.find((item) => item.id === id);
+      const currentQty = currentItem.quantity;
+
+      if (currentQty + 1 > stockQty) {
+        toast.error("Quantity exceeds stock!");
+        return;
+      }
+
+      setCart((prevCart) =>
+        prevCart.map((item) =>
           item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-        return updatedCart;
-      });
+        )
+      );
+
+      const updatedCart = userCart.map((item) =>
+        item.id === id ? { ...item, quantity: currentQty + 1 } : item
+      );
       await axios.patch(`http://localhost:5000/users/${userId}`, {
-        cart: cart.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-        ),
+        cart: updatedCart,
       });
     } catch (error) {
       console.error("Error updating cart:", error);
+      toast.error("Failed to update cart. Please try again.");
+    }
+  };
+  const decreaseQuantity = async (id) => {
+    const userId = localStorage.getItem("id");
+    if (!userId) return;
+
+    try {
+      const userResponse = await axios.get(
+        `http://localhost:5000/users/${userId}`
+      );
+      const userCart = userResponse.data.cart;
+      const currentItem = userCart.find((item) => item.id === id);
+      const currentQty = currentItem ? currentItem.quantity : 0;
+
+      if (currentQty <= 1) {
+        toast.error("Minimum quantity is 1!");
+        return;
+      }
+
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        )
+      );
+
+      const updatedCart = userCart.map((item) =>
+        item.id === id ? { ...item, quantity: currentQty - 1 } : item
+      );
+      await axios.patch(`http://localhost:5000/users/${userId}`, {
+        cart: updatedCart,
+      });
+    } catch (error) {
+      console.error("Error updating cart:", error);
+      toast.error("Failed to update cart. Please try again.");
     }
   };
 
@@ -100,8 +158,10 @@ const CartProvider = ({ children }) => {
         error,
         loading,
         addToCart,
+        cartCount,
         removeFromCart,
         increaseQuantity,
+        decreaseQuantity,
       }}
     >
       {children}
