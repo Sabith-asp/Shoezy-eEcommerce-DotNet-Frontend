@@ -36,7 +36,6 @@ const CartItem = ({ product }) => {
               <button
                 onClick={() => {
                   increaseQuantity(product.id);
-                  console.log("clicked");
                 }}
                 className="border-0 bg-transparent fs-4"
               >

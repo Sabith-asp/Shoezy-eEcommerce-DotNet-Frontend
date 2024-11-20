@@ -9,17 +9,20 @@ const OrderHistory = () => {
   useEffect(() => {
     const id = localStorage.getItem("id");
     const fetchData = async () => {
+      if (!id) {
+        return;
+      }
       const response = await axios.get(`http://localhost:5000/users/${id}`);
       setOrders(response.data.order);
     };
     fetchData();
   }, [cart]);
-  console.log(orders);
 
   return (
     <section className="order container">
       <div className="row d-flex align-items-center justify-content-center">
         <div className="col-12 col-md-5">
+          <h2 className="fw-bold">Orders</h2>
           {orders.length === 0 ? (
             <div>
               <h4 className="text-danger">No orders..</h4>
@@ -36,7 +39,10 @@ const OrderHistory = () => {
                     />
                     <div className="ms-3">
                       <p className="m-0">{product.title}</p>
-                      <h6>₹ {item.total}</h6>
+                      <h6 className="mb-0">
+                        ₹ {product.price * product.quantity}
+                      </h6>
+                      <p className="mb-0">Qty: {product.quantity}</p>
                       <p className="m-0">
                         <MdOutlinePayment className="mb-1 me-1" />
                         {item.paymentMode}

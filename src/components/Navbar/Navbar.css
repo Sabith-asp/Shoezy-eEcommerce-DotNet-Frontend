@@ -6,6 +6,10 @@
   box-shadow: none !important;
   border: none !important;
 }
+
+.user {
+  box-shadow: 0 0 10px rgb(169, 169, 169);
+}
 .navbar-toggler {
   border: 0 !important;
 }

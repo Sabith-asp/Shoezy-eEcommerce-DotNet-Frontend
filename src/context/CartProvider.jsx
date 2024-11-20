@@ -1,18 +1,21 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { DataContext } from "./Provider";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+  const { isUserLogin } = useContext(DataContext);
   const [cartCount, setCartCount] = useState(0);
+  const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
   const id = localStorage.getItem("id");
   useEffect(() => {
     fetchCart();
-  }, []);
+  }, [isUserLogin]);
 
   const fetchCart = async () => {
     if (!id) {
@@ -21,6 +24,7 @@ const CartProvider = ({ children }) => {
     try {
       const response = await axios.get(`http://localhost:5000/users/${id}`);
       setCart(response.data.cart);
+      setUser(response.data.name);
     } catch (error) {
       setError(error.message || "Failed to fetch cart data");
       toast.error("Error in fetching cart data");
@@ -31,7 +35,7 @@ const CartProvider = ({ children }) => {
 
   useEffect(() => {
     setCartCount(cart.length);
-  }, [cart]);
+  }, [cart, cart.length]);
 
   const addToCart = async (product) => {
     const id_ = localStorage.getItem("id");
@@ -155,6 +159,7 @@ const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cart,
+        user,
         error,
         loading,
         addToCart,

@@ -11,7 +11,6 @@ const Latest = () => {
     const fetchLatest = async () => {
       try {
         const response = await axios.get("http://localhost:5000/products");
-        console.log(response.data.slice(-20));
 
         setLatestProducts(response.data.slice(-20));
       } catch (error) {

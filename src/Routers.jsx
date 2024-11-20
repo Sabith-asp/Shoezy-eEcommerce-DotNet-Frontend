@@ -3,14 +3,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./pages/Layout/Layout";
 import Home from "./pages/Home/Home";
 import Provider from "./context/Provider";
-import Login from "./components/Login/Login";
-import SingUp from "./components/SignUp/SignUp";
 import AuthLayout from "./components/AuthLayout/AuthLayout";
 import ProductDetails from "./components/ProductDetail/ProductDetails";
 import Cart from "./pages/Cart/Cart";
 import CartProvider from "./context/CartProvider";
 import OrderHistory from "./components/OrderHistory/OrderHistory";
 import Products from "./pages/Products/Products";
+import AdminLayout from "./components/Admin/AdminLayout/AdminLayout";
+import Hello from "./components/Admin/AdminLayout/Hello";
 
 const Routers = () => {
   return (
@@ -18,6 +18,9 @@ const Routers = () => {
       <CartProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<Hello />} />
+            </Route>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/:category" element={<Products />} />

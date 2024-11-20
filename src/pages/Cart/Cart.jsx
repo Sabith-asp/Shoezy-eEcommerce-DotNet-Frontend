@@ -13,8 +13,7 @@ const Cart = () => {
   const [showModal, setShowModal] = useState(false);
   const [payment, setPayment] = useState(null);
   const navigate = useNavigate();
-  console.log("cart loaded");
-  const { cart, cartCount } = useContext(CartContext);
+  const { cart, setCart, cartCount } = useContext(CartContext);
   useEffect(() => {
     fetchCart();
   }, [cart]);
@@ -28,7 +27,6 @@ const Cart = () => {
       const response = await axios.get(`http://localhost:5000/users/${id}`);
       setCurrentCart(response.data.cart);
     } catch (error) {}
-    console.log(currentCart);
   };
 
   const totalPrice = useMemo(() => {
@@ -90,7 +88,10 @@ const Cart = () => {
       setTimeout(() => {
         navigate("/order-history");
       }, 500);
-    } catch (err) {}
+    } catch (err) {
+      console.log("Error in placing order");
+      toast.error("Error in placing order");
+    }
   };
 
   return (
@@ -160,7 +161,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="name"
-                      component="div"
+                      component="div "
                       className="error"
                     />
                   </div>
@@ -176,7 +177,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="email"
-                      component="div"
+                      component="div "
                       className="error"
                     />
                   </div>
@@ -192,7 +193,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="phone"
-                      component="div"
+                      component="div "
                       className="error"
                     />
                   </div>
@@ -210,7 +211,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="address"
-                      component="div"
+                      component="div "
                       className="error"
                     />
                   </div>
@@ -226,7 +227,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="city"
-                      component="div"
+                      component="div "
                       className="error"
                     />
                   </div>
@@ -243,7 +244,7 @@ const Cart = () => {
                       />
                       <ErrorMessage
                         name="state"
-                        component="div"
+                        component="div "
                         className="error"
                       />
                     </div>
@@ -258,7 +259,7 @@ const Cart = () => {
                       />
                       <ErrorMessage
                         name="zip"
-                        component="div"
+                        component="div "
                         className="error"
                       />
                     </div>

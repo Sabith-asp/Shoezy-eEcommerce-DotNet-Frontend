@@ -15,10 +15,8 @@ const Products = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:5000/products");
-        console.log(response);
 
         const filtered = response.data.filter((item) => item.brand == category);
-        console.log(filtered);
 
         category === "All" ? setData(response.data) : setData(filtered);
       } catch (error) {
@@ -29,8 +27,6 @@ const Products = () => {
     };
     fetchData();
   }, [category]);
-  console.log(data);
-  console.log(category);
 
   //   if (category) {
   //     const filtered = data.filter((item) => item.brand === category);
