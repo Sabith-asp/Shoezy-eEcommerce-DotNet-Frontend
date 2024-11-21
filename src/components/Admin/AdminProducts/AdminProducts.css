@@ -1,0 +1,26 @@
+.product-header {
+  background-color: rgb(216, 216, 216);
+}
+
+.category-option {
+  outline: 0;
+}
+
+.scrollable-table {
+  max-height: 80vh; /* Set the height to your preference */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Prevent horizontal scrolling if unnecessary */ /* Optional: Add a border for clarity */
+}
+
+.scrollable-table::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 0px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
+}
+.table-title th {
+  height: 50px;
+}

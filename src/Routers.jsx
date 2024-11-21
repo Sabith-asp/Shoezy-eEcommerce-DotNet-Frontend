@@ -10,7 +10,8 @@ import CartProvider from "./context/CartProvider";
 import OrderHistory from "./components/OrderHistory/OrderHistory";
 import Products from "./pages/Products/Products";
 import AdminLayout from "./components/Admin/AdminLayout/AdminLayout";
-import Hello from "./components/Admin/AdminLayout/Hello";
+import Dashboard from "./components/Admin/Dashboard/Dashboard";
+import AdminProducts from "./components/Admin/AdminProducts/AdminProducts";
 
 const Routers = () => {
   return (
@@ -19,7 +20,8 @@ const Routers = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Hello />} />
+              <Route index element={<Dashboard />} />
+              <Route path="products" element={<AdminProducts />} />
             </Route>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
