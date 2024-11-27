@@ -75,6 +75,7 @@ const Cart = () => {
       toast.error("Select payment gateway");
       return;
     }
+
     try {
       const id = localStorage.getItem("id");
       if (!id) return;
@@ -83,11 +84,13 @@ const Cart = () => {
       await axios.patch(`http://localhost:5000/users/${id}`, {
         order: [...oldOrder, orderData],
       });
+      await axios.post("http://localhost:5000/allOrders", orderData);
       await axios.patch(`http://localhost:5000/users/${id}`, { cart: [] });
       toast.success("Order Placed");
       setTimeout(() => {
         navigate("/order-history");
       }, 500);
+      return;
     } catch (err) {
       console.log("Error in placing order");
       toast.error("Error in placing order");
@@ -161,7 +164,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="name"
-                      component="div "
+                      component="div"
                       className="error"
                     />
                   </div>
@@ -177,7 +180,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="email"
-                      component="div "
+                      component="div"
                       className="error"
                     />
                   </div>
@@ -193,7 +196,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="phone"
-                      component="div "
+                      component="div"
                       className="error"
                     />
                   </div>
@@ -211,7 +214,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="address"
-                      component="div "
+                      component="div"
                       className="error"
                     />
                   </div>
@@ -227,7 +230,7 @@ const Cart = () => {
                     />
                     <ErrorMessage
                       name="city"
-                      component="div "
+                      component="div"
                       className="error"
                     />
                   </div>
@@ -244,7 +247,7 @@ const Cart = () => {
                       />
                       <ErrorMessage
                         name="state"
-                        component="div "
+                        component="div"
                         className="error"
                       />
                     </div>
@@ -259,7 +262,7 @@ const Cart = () => {
                       />
                       <ErrorMessage
                         name="zip"
-                        component="div "
+                        component="div"
                         className="error"
                       />
                     </div>

@@ -1,0 +1,13 @@
+.admin-orders-card {
+  overflow-y: auto;
+}
+
+.orders::-webkit-scrollbar {
+  width: 0px; /* Width of the scrollbar */
+  height: 80px;
+}
+
+.orders::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
+}

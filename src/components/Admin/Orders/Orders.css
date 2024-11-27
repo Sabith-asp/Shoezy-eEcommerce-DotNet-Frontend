@@ -1,0 +1,27 @@
+.each-order > p {
+  margin-bottom: 0 !important;
+}
+.each-order {
+  background-color: rgb(216, 216, 216);
+  min-height: 350px;
+  box-shadow: 0 5px 10px rgb(128, 128, 128);
+}
+.total-price {
+  bottom: 10px;
+  right: 10px;
+}
+
+.all-orders {
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.all-orders::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 0px;
+}
+
+.all-orders::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
+}

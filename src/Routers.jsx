@@ -12,29 +12,40 @@ import Products from "./pages/Products/Products";
 import AdminLayout from "./components/Admin/AdminLayout/AdminLayout";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import AdminProducts from "./components/Admin/AdminProducts/AdminProducts";
+import Users from "./components/Admin/Users/Users";
+import AdminProvider from "./context/AdminProvider";
+import Block from "./components/Admin/Block/Block";
+import ScrollToTop from "./components/scrollToTop/scrollToTop";
+import Orders from "./components/Admin/Orders/Orders";
 
 const Routers = () => {
   return (
     <Provider>
       <CartProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="products" element={<AdminProducts />} />
-            </Route>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="/:category" element={<Products />} />
-              <Route path="auth" element={<AuthLayout />} />
-              <Route path="/product">
-                <Route path="detail/:id" element={<ProductDetails />} />
+        <AdminProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="products" element={<AdminProducts />} />
+                <Route path="users" element={<Users />} />
+                <Route path="block" element={<Block />} />
+                <Route path="orders" element={<Orders />} />
               </Route>
-              <Route path="/order-history" element={<OrderHistory />} />
-              <Route path="cart" element={<Cart />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="/:category" element={<Products />} />
+                <Route path="auth" element={<AuthLayout />} />
+                <Route path="/product">
+                  <Route path="detail/:id" element={<ProductDetails />} />
+                </Route>
+                <Route path="/order-history" element={<OrderHistory />} />
+                <Route path="cart" element={<Cart />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </AdminProvider>
       </CartProvider>
     </Provider>
   );

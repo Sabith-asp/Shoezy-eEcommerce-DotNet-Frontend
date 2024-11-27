@@ -4,7 +4,7 @@
       "id": "d1ad",
       "name": "fadi basheer",
       "email": "fadi@gmail.com",
-      "password": "98765543",
+      "password": "654321",
       "cart": [],
       "order": [
         {
@@ -103,8 +103,145 @@
           "zip": "676304",
           "paymentMode": "UPI",
           "date": "2024-11-19T09:10:53.142Z"
+        },
+        {
+          "id": 1732628450188,
+          "items": [
+            {
+              "id": "13",
+              "title": "Skechers Go Walk 5",
+              "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+              "price": 3700,
+              "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+              "brand": "Skechers",
+              "model": "Go Walk 5",
+              "color": "gray",
+              "category": "walking",
+              "discount": 20,
+              "quantity": 2
+            },
+            {
+              "id": "12",
+              "title": "Hoka Clifton 8",
+              "image": "https://www.theathletesfoot.co.nz/media/catalog/product/cache/30b15c9880beb2a1230f6de71d9a1f9d/1/1/1119393_rtar_01.jpg",
+              "price": 7500,
+              "description": "The Hoka Clifton 8 is a lightweight and cushioned running shoe, featuring an engineered mesh upper and EVA midsole. Available in colorways like Ocean/Blue and Black/White.",
+              "brand": "Hoka",
+              "model": "Clifton 8",
+              "color": "ocean blue",
+              "category": "running",
+              "discount": 12,
+              "quantity": 1
+            }
+          ],
+          "total": 14900,
+          "name": "Abdulla Sabith",
+          "email": "abdullasabith8089@gmail.com",
+          "phone": "9567141190",
+          "address": "107,pullisseri house,muttumpuram,vengara",
+          "city": "Vengara ,Malappuram",
+          "state": "Kerala",
+          "zip": "676304",
+          "paymentMode": "PAYPAL",
+          "date": "2024-11-26T13:40:50.188Z"
+        },
+        {
+          "id": 1732628597264,
+          "items": [
+            {
+              "id": "13",
+              "title": "Skechers Go Walk 5",
+              "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+              "price": 3700,
+              "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+              "brand": "Skechers",
+              "model": "Go Walk 5",
+              "color": "gray",
+              "category": "walking",
+              "discount": 20,
+              "quantity": 1
+            }
+          ],
+          "total": 3700,
+          "name": "fadi basheer",
+          "email": "abdullasabith@gmail.com",
+          "phone": "8978346534",
+          "address": "mukkam bypass",
+          "city": "Malappuram",
+          "state": "Kerala",
+          "zip": "676304",
+          "paymentMode": "UPI",
+          "date": "2024-11-26T13:43:17.264Z"
+        },
+        {
+          "id": 1732631326993,
+          "items": [
+            {
+              "id": "13",
+              "title": "Skechers Go Walk 5",
+              "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+              "price": 3700,
+              "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+              "brand": "Skechers",
+              "model": "Go Walk 5",
+              "color": "gray",
+              "category": "walking",
+              "discount": 20,
+              "quantity": 2
+            },
+            {
+              "id": "12",
+              "title": "Hoka Clifton 8",
+              "image": "https://www.theathletesfoot.co.nz/media/catalog/product/cache/30b15c9880beb2a1230f6de71d9a1f9d/1/1/1119393_rtar_01.jpg",
+              "price": 7500,
+              "description": "The Hoka Clifton 8 is a lightweight and cushioned running shoe, featuring an engineered mesh upper and EVA midsole. Available in colorways like Ocean/Blue and Black/White.",
+              "brand": "Hoka",
+              "model": "Clifton 8",
+              "color": "ocean blue",
+              "category": "running",
+              "discount": 12,
+              "quantity": 1
+            },
+            {
+              "id": "13",
+              "title": "Skechers Go Walk 5",
+              "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+              "price": 3700,
+              "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+              "brand": "Skechers",
+              "model": "Go Walk 5",
+              "color": "gray",
+              "category": "walking",
+              "discount": 20,
+              "quantity": 1
+            },
+            {
+              "id": "14",
+              "title": "Brooks Ghost 14",
+              "image": "https://res.cloudinary.com/dr9fn4qkg/image/upload/w_400/brooks-images/product-img/120356_317_l_wr.png",
+              "price": 6900,
+              "description": "Brooks Ghost 14 provides smooth transitions and cushioning, designed for daily running with a breathable upper and segmented crash pad. Available in Black/Blue and Gray/White.",
+              "brand": "Brooks",
+              "model": "Ghost 14",
+              "color": "blue",
+              "category": "running",
+              "discount": 14,
+              "quantity": 1
+            }
+          ],
+          "total": 25500,
+          "name": "Abdulla Sabith",
+          "email": "abdullasabith8089@gmail.com",
+          "phone": "9567141190",
+          "address": "107,pullisseri house,muttumpuram,vengara",
+          "city": "Vengara ,Malappuram",
+          "state": "Kerala",
+          "zip": "676304",
+          "paymentMode": "PAYPAL",
+          "date": "2024-11-26T14:28:46.993Z"
         }
-      ]
+      ],
+      "status": true
     },
     {
       "id": "0f6b",
@@ -112,7 +249,8 @@
       "email": "adibroshan@gm.com",
       "password": "23656235",
       "cart": [],
-      "order": []
+      "order": [],
+      "status": true
     },
     {
       "id": "c294",
@@ -128,7 +266,8 @@
       "email": "gopikagops@gmail.com",
       "password": "gopseee123",
       "cart": [],
-      "order": []
+      "order": [],
+      "status": true
     },
     {
       "id": "1d92",
@@ -160,7 +299,8 @@
       "email": "fasnas@gmail.com",
       "password": "fasnas12345",
       "cart": [],
-      "order": []
+      "order": [],
+      "status": true
     },
     {
       "id": "cc0a",
@@ -168,7 +308,8 @@
       "email": "abcd@gmail.com",
       "password": "123456",
       "cart": [],
-      "order": []
+      "order": [],
+      "status": true
     },
     {
       "id": "c68a",
@@ -216,7 +357,8 @@
       "email": "basith@gmail.com",
       "password": "123456",
       "cart": [],
-      "order": []
+      "order": [],
+      "status": true
     },
     {
       "id": "f2b6",
@@ -318,7 +460,21 @@
       "name": "shamsheer",
       "email": "shamsheer@gmail.com",
       "password": "654321",
-      "cart": [],
+      "cart": [
+        {
+          "id": "12",
+          "title": "Hoka Clifton 8",
+          "image": "https://www.theathletesfoot.co.nz/media/catalog/product/cache/30b15c9880beb2a1230f6de71d9a1f9d/1/1/1119393_rtar_01.jpg",
+          "price": 7500,
+          "description": "The Hoka Clifton 8 is a lightweight and cushioned running shoe, featuring an engineered mesh upper and EVA midsole. Available in colorways like Ocean/Blue and Black/White.",
+          "brand": "Hoka",
+          "model": "Clifton 8",
+          "color": "ocean blue",
+          "category": "running",
+          "discount": 12,
+          "quantity": 1
+        }
+      ],
       "order": [
         {
           "id": 1732013011030,
@@ -348,7 +504,39 @@
           "paymentMode": "UPI",
           "date": "2024-11-19T10:43:31.030Z"
         }
-      ]
+      ],
+      "status": true
+    },
+    {
+      "id": "4685",
+      "name": "adithyan",
+      "email": "adi@gmail.com",
+      "password": "123456",
+      "cart": [
+        {
+          "id": "10",
+          "title": "Fila Disruptor II",
+          "image": "https://fila.co.in/media/catalog/product/cache/274c04d22a7b28db321c499b6be61cc2/1/1/11009897_4.jpg",
+          "price": 4500,
+          "description": "The Fila Disruptor II is a bold, chunky sneaker featuring a leather upper and thick rubber sole, ideal for streetwear fashion. Available in White, Black, and Pink.",
+          "brand": "Fila",
+          "model": "Disruptor II",
+          "color": "white",
+          "category": "casual",
+          "discount": 18,
+          "quantity": 2
+        }
+      ],
+      "order": []
+    },
+    {
+      "id": "27ef",
+      "name": "salman",
+      "email": "salman@gmail.com",
+      "password": "098765",
+      "cart": [],
+      "order": [],
+      "status": true
     }
   ],
   "products": [
@@ -457,7 +645,6 @@
       "quantity": 10
     },
     {
-      "id": "9",
       "title": "Vans Old Skool",
       "image": "https://images.vans.com/is/image/Vans/VN000D3HY28-ALT1?fmt=png-alpha&wid=500&hei=500",
       "price": 3400,
@@ -467,7 +654,8 @@
       "color": "black",
       "category": "skate",
       "discount": 5,
-      "quantity": 10
+      "quantity": 20,
+      "id": "9"
     },
     {
       "id": "10",
@@ -622,7 +810,8 @@
       "model": "Suede Classic XXI",
       "color": "red",
       "category": "casual",
-      "discount": 20
+      "discount": 20,
+      "quantity": 10
     },
     {
       "id": "22",
@@ -675,6 +864,162 @@
       "category": "casual",
       "discount": 18,
       "quantity": 10
+    },
+    {
+      "title": "Nike Air Max 270",
+      "image": "https://static.nike.com/a/images/t_default/89a9429b-c0d9-4699-b897-c261fddaf221/W+AIR+MAX+270.png",
+      "price": 7400,
+      "description": "The Nike Air Max 270 offers next-level comfort with a large Air unit, breathable mesh upper, and sleek design. Available in Black/White and Blue/Red.",
+      "brand": "Nike",
+      "model": "Air Max 270",
+      "color": "black",
+      "category": "sport",
+      "discount": 25,
+      "quantity": 23,
+      "id": "dfad"
     }
-  ]
+  ],
+  "allOrders": [
+    {
+      "id": "1732628450188",
+      "items": [
+        {
+          "id": "13",
+          "title": "Skechers Go Walk 5",
+          "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+          "price": 3700,
+          "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+          "brand": "Skechers",
+          "model": "Go Walk 5",
+          "color": "gray",
+          "category": "walking",
+          "discount": 20,
+          "quantity": 2
+        },
+        {
+          "id": "12",
+          "title": "Hoka Clifton 8",
+          "image": "https://www.theathletesfoot.co.nz/media/catalog/product/cache/30b15c9880beb2a1230f6de71d9a1f9d/1/1/1119393_rtar_01.jpg",
+          "price": 7500,
+          "description": "The Hoka Clifton 8 is a lightweight and cushioned running shoe, featuring an engineered mesh upper and EVA midsole. Available in colorways like Ocean/Blue and Black/White.",
+          "brand": "Hoka",
+          "model": "Clifton 8",
+          "color": "ocean blue",
+          "category": "running",
+          "discount": 12,
+          "quantity": 1
+        }
+      ],
+      "total": 14900,
+      "name": "Abdulla Sabith",
+      "email": "abdullasabith8089@gmail.com",
+      "phone": "9567141190",
+      "address": "107,pullisseri house,muttumpuram,vengara",
+      "city": "Vengara ,Malappuram",
+      "state": "Kerala",
+      "zip": "676304",
+      "paymentMode": "PAYPAL",
+      "date": "2024-11-26T13:40:50.188Z"
+    },
+    {
+      "id": "1732628597264",
+      "items": [
+        {
+          "id": "13",
+          "title": "Skechers Go Walk 5",
+          "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+          "price": 3700,
+          "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+          "brand": "Skechers",
+          "model": "Go Walk 5",
+          "color": "gray",
+          "category": "walking",
+          "discount": 20,
+          "quantity": 1
+        }
+      ],
+      "total": 3700,
+      "name": "fadi basheer",
+      "email": "abdullasabith@gmail.com",
+      "phone": "8978346534",
+      "address": "mukkam bypass",
+      "city": "Malappuram",
+      "state": "Kerala",
+      "zip": "676304",
+      "paymentMode": "UPI",
+      "date": "2024-11-26T13:43:17.264Z"
+    },
+    {
+      "id": "1732631326993",
+      "items": [
+        {
+          "id": "13",
+          "title": "Skechers Go Walk 5",
+          "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+          "price": 3700,
+          "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+          "brand": "Skechers",
+          "model": "Go Walk 5",
+          "color": "gray",
+          "category": "walking",
+          "discount": 20,
+          "quantity": 2
+        },
+        {
+          "id": "12",
+          "title": "Hoka Clifton 8",
+          "image": "https://www.theathletesfoot.co.nz/media/catalog/product/cache/30b15c9880beb2a1230f6de71d9a1f9d/1/1/1119393_rtar_01.jpg",
+          "price": 7500,
+          "description": "The Hoka Clifton 8 is a lightweight and cushioned running shoe, featuring an engineered mesh upper and EVA midsole. Available in colorways like Ocean/Blue and Black/White.",
+          "brand": "Hoka",
+          "model": "Clifton 8",
+          "color": "ocean blue",
+          "category": "running",
+          "discount": 12,
+          "quantity": 1
+        },
+        {
+          "id": "13",
+          "title": "Skechers Go Walk 5",
+          "image": "https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw4be5476a/images/large/216047-1.jpeg",
+          "price": 3700,
+          "description": "The Skechers Go Walk 5 is a comfortable slip-on shoe ideal for walking, with a breathable upper and cushioned insole. Available in Black/Gray and Navy.",
+          "brand": "Skechers",
+          "model": "Go Walk 5",
+          "color": "gray",
+          "category": "walking",
+          "discount": 20,
+          "quantity": 1
+        },
+        {
+          "id": "14",
+          "title": "Brooks Ghost 14",
+          "image": "https://res.cloudinary.com/dr9fn4qkg/image/upload/w_400/brooks-images/product-img/120356_317_l_wr.png",
+          "price": 6900,
+          "description": "Brooks Ghost 14 provides smooth transitions and cushioning, designed for daily running with a breathable upper and segmented crash pad. Available in Black/Blue and Gray/White.",
+          "brand": "Brooks",
+          "model": "Ghost 14",
+          "color": "blue",
+          "category": "running",
+          "discount": 14,
+          "quantity": 1
+        }
+      ],
+      "total": 25500,
+      "name": "Abdulla Sabith",
+      "email": "abdullasabith8089@gmail.com",
+      "phone": "9567141190",
+      "address": "107,pullisseri house,muttumpuram,vengara",
+      "city": "Vengara ,Malappuram",
+      "state": "Kerala",
+      "zip": "676304",
+      "paymentMode": "PAYPAL",
+      "date": "2024-11-26T14:28:46.993Z"
+    }
+  ],
+  "admin": {
+    "id": "a231",
+    "email": "admin@gmail.com",
+    "password": "admin123"
+  }
 }

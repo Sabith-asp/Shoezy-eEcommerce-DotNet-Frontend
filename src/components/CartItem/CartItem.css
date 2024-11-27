@@ -27,6 +27,11 @@
   -webkit-box-orient: vertical;
 }
 
+.cart-item-price {
+  bottom: 10px;
+  right: 10px;
+}
+
 .qty-button {
   color: var(--primary-color);
 }

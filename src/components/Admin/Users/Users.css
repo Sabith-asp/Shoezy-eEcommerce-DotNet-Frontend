@@ -1,0 +1,14 @@
+.user-orders {
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.user-orders::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 0px;
+}
+
+.user-orders::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
+}

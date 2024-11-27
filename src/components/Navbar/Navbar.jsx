@@ -7,7 +7,7 @@ import { CartContext } from "../../context/CartProvider";
 import { FaUserCircle } from "react-icons/fa";
 const Navbar = () => {
   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
-  const { cart, cartCount, user } = useContext(CartContext);
+  const { cart, setCart, cartCount, user } = useContext(CartContext);
   const logout = () => {
     localStorage.removeItem("id");
     localStorage.removeItem("name");

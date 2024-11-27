@@ -1,36 +1,83 @@
-import React from "react";
+import React, { useContext } from "react";
+import "./Details.css";
+import CountUp from "react-countup";
+import { AdminContext } from "../../../context/AdminProvider";
 
 const Details = () => {
+  const { products, users } = useContext(AdminContext);
+  const salesAmount = users.reduce((totalAmount, user) => {
+    const userTotal = user.order.reduce((sum, order) => sum + order.total, 0);
+    return totalAmount + userTotal;
+  }, 0);
+
+  const totalStocks = products?.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  //   const salesAmount=users.reduce((acc,user.order.)=>acc+curr)
   return (
-    <div className="container-fluid">
+    <div className="container-fluid p-1">
       <h3 className=" fw-semibold mt-3">Details</h3>
       <div className="row">
-        <div className="col-4 col-md-2 mb-2">
-          <div className="p-1 p-md-2 bg-warning rounded-3 text-center">
-            <p className="mb-0">
-              Orders: <span className="fw-bold">253</span>
-            </p>
+        <div className="col-6 col-md-5 mb-3">
+          <div
+            style={{
+              backgroundColor: "#1ac6e5",
+              height: "90px",
+              border: " 2px solid black",
+            }}
+            className="statics p-2 rounded-4  d-flex flex-column justify-content-center "
+          >
+            <h2 className="mb-0 mt-2 fw-bolder">
+              <CountUp start={0} end={products.length} duration={2} />
+            </h2>
+            <h3 className="fw-bold">Products</h3>
           </div>
         </div>
-        <div className="col-4 col-md-2 mb-2">
-          <div className="p-1 p-md-2 bg-warning rounded-3 text-center">
-            <p className="mb-0">
-              Orders: <span className="fw-bold">253</span>
-            </p>
+        <div className="col-6 col-md-5 mb-3">
+          <div
+            style={{
+              backgroundColor: "#d930a8",
+              height: "90px",
+              border: " 2px solid black",
+            }}
+            className="statics p-2 rounded-4 d-flex flex-column justify-content-center"
+          >
+            <h2 className="mb-0 mt-2 fw-bolder">
+              <CountUp start={0} end={users.length} duration={2} />
+            </h2>
+            <h3 className="fw-bold">Users</h3>
           </div>
         </div>
-        <div className="col-4 col-md-2 mb-2">
-          <div className="p-1 p-md-2 bg-warning rounded-3 text-center">
-            <p className="mb-0">
-              Orders: <span className="fw-bold">253</span>
-            </p>
+        <div className="col-6 col-md-5 mb-3">
+          <div
+            style={{
+              backgroundColor: "#e8341b",
+              height: "90px",
+              border: " 2px solid black",
+            }}
+            className=" statics p-2 rounded-4 d-flex flex-column justify-content-center"
+          >
+            <h2 className="mb-0 mt-2 fw-bolder">
+              ₹<CountUp start={0} end={salesAmount} duration={2} />+
+            </h2>
+            <h3 className="fw-bold">Sales</h3>
           </div>
         </div>
-        <div className="col-4 col-md-2 mb-2">
-          <div className="p-1 p-md-2 bg-warning rounded-3 text-center">
-            <p className="mb-0">
-              Orders: <span className="fw-bold">253</span>
-            </p>
+        <div className="col-6 col-md-5 mb-3">
+          <div
+            style={{
+              backgroundColor: "#3ac840",
+              height: "90px",
+              border: " 2px solid black",
+            }}
+            className="statics p-2 rounded-4 d-flex flex-column justify-content-center"
+          >
+            <h2 className="mb-0 mt-2 fw-bolder">
+              <CountUp start={0} end={totalStocks} duration={2} />+
+            </h2>
+            <h3 className="fw-bold">Stocks</h3>
           </div>
         </div>
       </div>
