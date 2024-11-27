@@ -8,7 +8,6 @@ import { AiFillProduct } from "react-icons/ai";
 import { FaUserSlash, FaCircleUser } from "react-icons/fa6";
 import { MdHome } from "react-icons/md";
 import { BiSolidError, BiSolidPurchaseTag } from "react-icons/bi";
-// import "react-pro-sidebar/dist/css/styles.css";
 
 const AdminLayout = () => {
   const navigate = useNavigate();

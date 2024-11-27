@@ -4,7 +4,7 @@ import { TiFilter } from "react-icons/ti";
 import axios from "axios";
 import Loader from "../../Loader/Loader";
 import Modal from "../Modal/Modal";
-import EditForm from "../EditForm/ProductForm";
+import EditForm from "../ProductForm/ProductForm";
 import { AdminContext } from "../../../context/AdminProvider";
 
 const AdminProducts = () => {

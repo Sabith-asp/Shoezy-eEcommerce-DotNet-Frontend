@@ -4,7 +4,8 @@ import "./Users.css";
 import { AdminContext } from "../../../context/AdminProvider.jsx";
 import Modal from "../Modal/Modal.jsx";
 import AdminCartCard from "../AdminCartCard/AdminCartCard.jsx";
-import { TbMoodEmpty } from "react-icons/tb";
+import { TbShoppingCartX } from "react-icons/tb";
+import { BsBagXFill } from "react-icons/bs";
 import AdminOrderCard from "../AdminOrderCard/AdminOrderCard.jsx";
 
 const Users = () => {
@@ -116,32 +117,11 @@ const Users = () => {
         <h4>Cart</h4>
         <div className="cart-items">
           {userCart.length > 0 ? (
-            userCart.map((product) => (
-              //   <div>
-              //     <div className="admin-cart-item mt-2 d-flex position-relative p-2 align-items-center rounded-4">
-              //       <div className="cart-img rounded-3  overflow-hidden">
-              //         <img
-              //           className=" h-100 w-100 object-fit-cover "
-              //           src={product.image}
-              //           alt=""
-              //         />
-              //       </div>
-              //       <div className="d-flex w-100 ps-3  flex-column  text-white">
-              //         <h6>{product.title}</h6>
-              //         <span className="mb-0">Brand: {product.brand}</span>
-              //         <span className="mb-0">Qty: {product.quantity}</span>
-              //       </div>
-              //       <h4 className="cart-price fw-bolder position-absolute">
-              //         {product.quantity * product.price}
-              //       </h4>
-              //     </div>
-              //   </div>
-              <AdminCartCard product={product} />
-            ))
+            userCart.map((product) => <AdminCartCard product={product} />)
           ) : (
             <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-              <div>
-                <TbMoodEmpty style={{ fontSize: "130px " }} />
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <TbShoppingCartX style={{ fontSize: "80px " }} />
                 <h3 className="text-center text-danger">Cart Empty</h3>
               </div>
             </div>
@@ -157,8 +137,8 @@ const Users = () => {
             ))
           ) : (
             <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-              <div>
-                <TbMoodEmpty style={{ fontSize: "130px " }} />
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <BsBagXFill style={{ fontSize: "80px " }} />
                 <h3 className="text-center text-danger">No orders</h3>
               </div>
             </div>

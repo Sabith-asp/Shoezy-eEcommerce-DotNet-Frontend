@@ -18,7 +18,7 @@ const Block = () => {
       <div className="blocked-users   p-2 rounded-4">
         <h3 className="fw-semibold mb-0 mt-1">Block User</h3> <hr />
         <div>
-          <h4 className="mt-2 text-danger fw-semibold">Blocked Users</h4>
+          <h4 className="mt-2 text-danger fw-semibold">Blocked Users List</h4>
           <div className="scrollable-table mt-2">
             <table className=" mt-2 w-100 table-border">
               <thead>
@@ -60,7 +60,7 @@ const Block = () => {
               </tbody>
             </table>
           </div>
-          <h4 className="mt-2 fw-semibold">Users</h4>
+          <h4 className="mt-2 fw-semibold">Users List</h4>
           <div className="block-table mt-2">
             <table className=" mt-2 w-100 table-border">
               <thead>

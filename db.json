@@ -5,7 +5,21 @@
       "name": "fadi basheer",
       "email": "fadi@gmail.com",
       "password": "654321",
-      "cart": [],
+      "cart": [
+        {
+          "id": "10",
+          "title": "Fila Disruptor II",
+          "image": "https://fila.co.in/media/catalog/product/cache/274c04d22a7b28db321c499b6be61cc2/1/1/11009897_4.jpg",
+          "price": 4500,
+          "description": "The Fila Disruptor II is a bold, chunky sneaker featuring a leather upper and thick rubber sole, ideal for streetwear fashion. Available in White, Black, and Pink.",
+          "brand": "Fila",
+          "model": "Disruptor II",
+          "color": "white",
+          "category": "casual",
+          "discount": 18,
+          "quantity": 1
+        }
+      ],
       "order": [
         {
           "id": 1732006399053,
@@ -239,6 +253,34 @@
           "zip": "676304",
           "paymentMode": "PAYPAL",
           "date": "2024-11-26T14:28:46.993Z"
+        },
+        {
+          "id": 1732686586151,
+          "items": [
+            {
+              "id": "5",
+              "title": "Reebok Club C 85",
+              "image": "https://image.goxip.com/RvdzoDfN1n_hSpvf-WJ_PR0Rm44=/fit-in/500x500/filters:format(jpg):quality(80):fill(white)/https:%2F%2Fimages.stockx.com%2Fimages%2FReebok-Club-C-85-TV-Chalk-Glen-Green-Product.jpg",
+              "price": 4200,
+              "description": "Reebok's Club C 85 shoes are a timeless classic featuring a soft leather upper and EVA midsole for comfort. Available in White/Green and Chalk/Collegiate Navy.",
+              "brand": "Reebok",
+              "model": "Club C 85",
+              "color": "white",
+              "category": "casual",
+              "discount": 18,
+              "quantity": 1
+            }
+          ],
+          "total": 4200,
+          "name": "Abdulla Sabith",
+          "email": "abdullasabith8089@gmail.com",
+          "phone": "9567141190",
+          "address": "107,pullisseri house,muttumpuram,vengara",
+          "city": "Vengara ,Malappuram",
+          "state": "Kerala",
+          "zip": "676304",
+          "paymentMode": "BITCOIN",
+          "date": "2024-11-27T05:49:46.151Z"
         }
       ],
       "status": true
@@ -291,7 +333,8 @@
       "email": "rameestk@gmail.com",
       "password": "ramees124",
       "cart": [],
-      "order": []
+      "order": [],
+      "status": true
     },
     {
       "id": "bd07",
@@ -877,6 +920,32 @@
       "discount": 25,
       "quantity": 23,
       "id": "dfad"
+    },
+    {
+      "id": "7905",
+      "title": "Nike Air Max 90",
+      "image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/7cce2301-9d6d-482c-a8ba-50f33f1c9415/AIR+MAX+90+%28GS%29.png",
+      "price": 4500,
+      "description": "The Nike Air Max 90 stays true to its original running roots with a premium upper and durable cushioning. Available in White/Red and Black/Volt.",
+      "brand": "Nike",
+      "model": "Air Max 90",
+      "color": "white",
+      "category": "casual",
+      "discount": 10,
+      "quantity": 15
+    },
+    {
+      "title": "Puma RS-X³ Puzzle",
+      "image": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/373236/02/sv01/fnd/PNA/fmt/png",
+      "price": 4500,
+      "description": "The Puma RS-X³ Puzzle combines bold color blocking with a chunky design for a statement look. Available in White/Blue and Multi-color.",
+      "brand": "Puma",
+      "model": "RS-X³ Puzzle",
+      "color": "white",
+      "category": "sports",
+      "discount": 20,
+      "quantity": 20,
+      "id": "d8a5"
     }
   ],
   "allOrders": [
@@ -1015,6 +1084,34 @@
       "zip": "676304",
       "paymentMode": "PAYPAL",
       "date": "2024-11-26T14:28:46.993Z"
+    },
+    {
+      "id": 1732686586151,
+      "items": [
+        {
+          "id": "5",
+          "title": "Reebok Club C 85",
+          "image": "https://image.goxip.com/RvdzoDfN1n_hSpvf-WJ_PR0Rm44=/fit-in/500x500/filters:format(jpg):quality(80):fill(white)/https:%2F%2Fimages.stockx.com%2Fimages%2FReebok-Club-C-85-TV-Chalk-Glen-Green-Product.jpg",
+          "price": 4200,
+          "description": "Reebok's Club C 85 shoes are a timeless classic featuring a soft leather upper and EVA midsole for comfort. Available in White/Green and Chalk/Collegiate Navy.",
+          "brand": "Reebok",
+          "model": "Club C 85",
+          "color": "white",
+          "category": "casual",
+          "discount": 18,
+          "quantity": 1
+        }
+      ],
+      "total": 4200,
+      "name": "Abdulla Sabith",
+      "email": "abdullasabith8089@gmail.com",
+      "phone": "9567141190",
+      "address": "107,pullisseri house,muttumpuram,vengara",
+      "city": "Vengara ,Malappuram",
+      "state": "Kerala",
+      "zip": "676304",
+      "paymentMode": "BITCOIN",
+      "date": "2024-11-27T05:49:46.151Z"
     }
   ],
   "admin": {
