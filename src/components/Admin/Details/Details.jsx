@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import "./Details.css";
 import CountUp from "react-countup";
 import { AdminContext } from "../../../context/AdminProvider";
+import LatestOrders from "../LatestOrders/LatestOrders";
+import CircularChart from "../CircularChart/CircularChart";
 
 const Details = () => {
   const { products, users } = useContext(AdminContext);
@@ -80,6 +82,11 @@ const Details = () => {
             <h5 className="fw-bold">Stocks</h5>
           </div>
         </div>
+      </div>
+      <LatestOrders />
+      <div className=" category-chart">
+        <h3 className=" fw-semibold mt-3">Categories</h3>
+        <CircularChart />
       </div>
     </div>
   );

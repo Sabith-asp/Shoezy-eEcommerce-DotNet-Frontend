@@ -26,7 +26,7 @@ const Orders = () => {
           .map((order) => (
             <div className="col-md-6 col-12 p-0">
               <div className="each-order position-relative rounded-4 p-3 mb-3 mx-1 text-black">
-                <p>Order Id: {order.id}</p>
+                <p className="fw-bolder">Order Id: {order.id}</p>
                 <div
                   style={{ top: "10px", right: "10px" }}
                   className="d-flex position-absolute bg-white text-black p-1 px-2 rounded-3"
@@ -45,9 +45,9 @@ const Orders = () => {
                 <p>Pincode: {order.zip}</p>
                 <p>Payment: {order.paymentMode}</p>
 
-                <h3 className="total-price text-black fw-bold mb-0 position-absolute">
-                  Total: {order.total}
-                </h3>
+                <h5 className="total-price text-black  mb-0 position-absolute">
+                  Total:<span className="fs-4 fw-bold"> ₹{order.total}</span>
+                </h5>
               </div>
             </div>
           ))}

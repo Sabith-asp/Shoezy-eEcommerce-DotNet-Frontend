@@ -23,6 +23,7 @@ const Block = () => {
             <table className=" mt-2 w-100 table-border">
               <thead>
                 <tr className="table-title">
+                  <th>ID</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Status</th>
@@ -32,6 +33,7 @@ const Block = () => {
                 {blockedUsers.length > 0 ? (
                   blockedUsers.map((user) => (
                     <tr key={user.id}>
+                      <td>{user.id}</td>
                       <td>{user.name}</td>
                       <td>{user.email}</td>
                       <td>
@@ -65,6 +67,7 @@ const Block = () => {
             <table className=" mt-2 w-100 table-border">
               <thead>
                 <tr className="table-title">
+                  <th>ID</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Status</th>
@@ -73,6 +76,7 @@ const Block = () => {
               <tbody>
                 {users.map((user) => (
                   <tr key={user.id}>
+                    <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>

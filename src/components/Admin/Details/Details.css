@@ -6,3 +6,7 @@
 .statics:hover {
   box-shadow: 3px 3px 20px rgb(79, 79, 79);
 }
+.category-chart {
+  height: 300px;
+  width: 300px;
+}

@@ -40,7 +40,6 @@ const AdminLayout = () => {
       style={{
         display: "flex",
         height: "100vh",
-
         minHeight: "400px",
       }}
     >
@@ -115,8 +114,9 @@ const AdminLayout = () => {
               <MdAdminPanelSettings className="fs-1 text-white" />
             </div>
           </div>
-
-          <Outlet />
+          <div className="dashboard-content">
+            <Outlet />
+          </div>
         </div>
       </main>
     </div>

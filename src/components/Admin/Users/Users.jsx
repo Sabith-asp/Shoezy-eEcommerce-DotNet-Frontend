@@ -74,6 +74,7 @@ const Users = () => {
           <table className="users-table mt-2 w-100 table-border">
             <thead>
               <tr className="table-title">
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Password</th>
@@ -84,6 +85,7 @@ const Users = () => {
             <tbody>
               {users.map((user) => (
                 <tr key={user.id}>
+                  <td>{user.id}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.password}</td>

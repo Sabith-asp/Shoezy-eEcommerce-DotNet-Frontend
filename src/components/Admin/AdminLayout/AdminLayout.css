@@ -4,3 +4,19 @@
 .admin-header {
   background-color: var(--primary-color);
 }
+
+/* .dashboard-content {
+  height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.dashboard-content::-webkit-scrollbar {
+  width: 8px;
+  height: 0;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+} */

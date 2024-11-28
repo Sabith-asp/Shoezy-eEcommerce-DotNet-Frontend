@@ -1,0 +1,14 @@
+.dashboard-container {
+  height: 85vh;
+  overflow-y: auto;
+}
+
+.dashboard-container::-webkit-scrollbar {
+  width: 8px;
+  height: 0;
+}
+
+.dashboard-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}

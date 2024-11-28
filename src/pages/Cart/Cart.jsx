@@ -71,6 +71,11 @@ const Cart = () => {
       date: new Date().toISOString(),
     };
 
+    cart.map((cartItem) => {
+      const fetchProduct = async () => {};
+      fetchProduct();
+    });
+
     if (!orderData.paymentMode) {
       toast.error("Select payment gateway");
       return;
@@ -86,6 +91,23 @@ const Cart = () => {
       });
       await axios.post("http://localhost:5000/allOrders", orderData);
       await axios.patch(`http://localhost:5000/users/${id}`, { cart: [] });
+
+      const productUpdate = async () => {
+        try {
+          for (const cartItem of cart) {
+            const { data: productData } = await axios.get(
+              `http://localhost:5000/products/${cartItem.id}`
+            );
+            await axios.patch(`http://localhost:5000/products/${cartItem.id}`, {
+              ...productData,
+              quantity: productData.quantity - cartItem.quantity,
+            });
+          }
+        } catch (error) {
+          console.log("error in updating product");
+        }
+      };
+      productUpdate();
       toast.success("Order Placed");
       setTimeout(() => {
         navigate("/order-history");

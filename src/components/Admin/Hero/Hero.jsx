@@ -11,17 +11,17 @@ const Hero = () => {
         <div className="row">
           <div className="col-6">
             <Link to="/admin/products">
-              <div className="hero-btn d-flex flex-column align-items-center p-3 rounded-4">
-                <AiFillProduct style={{ fontSize: "80px" }} />
-                <h5>Products</h5>
+              <div className="hero-btn d-flex flex-column align-items-center p-2 rounded-4">
+                <AiFillProduct style={{ fontSize: "40px" }} />
+                <h6>Products</h6>
               </div>
             </Link>
           </div>
           <div className="col-6">
             <Link to="/admin/users">
-              <div className="hero-btn d-flex flex-column align-items-center p-3 rounded-4">
-                <FaCircleUser style={{ fontSize: "80px" }} />
-                <h5>Users</h5>
+              <div className="hero-btn d-flex flex-column align-items-center p-2 rounded-4">
+                <FaCircleUser style={{ fontSize: "40px" }} />
+                <h6>Users</h6>
               </div>
             </Link>
           </div>
