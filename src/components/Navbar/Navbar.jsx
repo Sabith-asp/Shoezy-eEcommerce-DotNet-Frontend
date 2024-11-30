@@ -7,12 +7,9 @@ import { CartContext } from "../../context/CartProvider";
 import { FaUserCircle } from "react-icons/fa";
 const Navbar = () => {
   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
-  const { cart, setCart, cartCount, user } = useContext(CartContext);
-  const logout = () => {
-    localStorage.removeItem("id");
-    localStorage.removeItem("name");
-    setIsUserLogin(!isUserLogin);
-  };
+  const { cart, setCart, user, logout } = useContext(CartContext);
+  const cartCount = cart.length;
+  console.log("navbar rerendered");
 
   return (
     <nav className="navbar navbar-expand-md px-2 px-md-5 bg-body-tertiary fixed-top">

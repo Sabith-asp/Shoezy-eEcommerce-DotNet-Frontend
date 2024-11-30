@@ -41,7 +41,7 @@ const OrderHistory = () => {
                     <div key={index} className="">
                       <div className="order-item rounded-4 text-white d-flex p-2 mb-3">
                         <img
-                          className="order-img rounded-4"
+                          className="order-img rounded-4 bg-white"
                           src={product.image}
                           alt={product.title}
                         />

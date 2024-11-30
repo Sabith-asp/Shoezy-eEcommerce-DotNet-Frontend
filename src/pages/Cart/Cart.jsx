@@ -9,25 +9,11 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const Cart = () => {
-  const [currentCart, setCurrentCart] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [payment, setPayment] = useState(null);
   const navigate = useNavigate();
-  const { cart, setCart, cartCount } = useContext(CartContext);
-  useEffect(() => {
-    fetchCart();
-  }, [cart]);
-  const id = localStorage.getItem("id");
-  const fetchCart = async () => {
-    if (!id) {
-      toast.error("Login now to view cart");
-      return;
-    }
-    try {
-      const response = await axios.get(`http://localhost:5000/users/${id}`);
-      setCurrentCart(response.data.cart);
-    } catch (error) {}
-  };
+  const { cart, cartCount } = useContext(CartContext);
+  console.log("cert rerendered");
 
   const totalPrice = useMemo(() => {
     return cart.reduce(
@@ -71,11 +57,6 @@ const Cart = () => {
       date: new Date().toISOString(),
     };
 
-    cart.map((cartItem) => {
-      const fetchProduct = async () => {};
-      fetchProduct();
-    });
-
     if (!orderData.paymentMode) {
       toast.error("Select payment gateway");
       return;
@@ -89,7 +70,10 @@ const Cart = () => {
       await axios.patch(`http://localhost:5000/users/${id}`, {
         order: [...oldOrder, orderData],
       });
-      await axios.post("http://localhost:5000/allOrders", orderData);
+      await axios.post("http://localhost:5000/allOrders", {
+        ...orderData,
+        userId: userData.data.id,
+      });
       await axios.patch(`http://localhost:5000/users/${id}`, { cart: [] });
 
       const productUpdate = async () => {
@@ -123,13 +107,13 @@ const Cart = () => {
     <div className="cart container-md">
       <div className="row">
         <div className="left3 pt-0 p-2 col-12 col-sm-7">
-          {currentCart.length === 0 ? (
+          {cart.length === 0 ? (
             <div>
               <h3 className="fw-bold">No items in cart</h3>
             </div>
           ) : (
             <div>
-              {currentCart.map((item) => (
+              {cart.map((item) => (
                 <CartItem key={item.id} product={item} />
               ))}
             </div>

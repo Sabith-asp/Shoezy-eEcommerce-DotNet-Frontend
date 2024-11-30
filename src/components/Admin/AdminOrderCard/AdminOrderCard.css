@@ -1,10 +1,10 @@
-.admin-orders-card {
+.orders {
   overflow-y: auto;
 }
 
 .orders::-webkit-scrollbar {
   width: 0px; /* Width of the scrollbar */
-  height: 80px;
+  height: 8px;
 }
 
 .orders::-webkit-scrollbar-thumb {

@@ -6,16 +6,17 @@ import { DataContext } from "./Provider";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const { isUserLogin } = useContext(DataContext);
-  const [cartCount, setCartCount] = useState(0);
+  const { isUserLogin, setIsUserLogin } = useContext(DataContext);
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
   const id = localStorage.getItem("id");
   useEffect(() => {
-    fetchCart();
-  }, [isUserLogin]);
+    if (id) {
+      fetchCart();
+    }
+  }, [isUserLogin, id]);
 
   const fetchCart = async () => {
     if (!id) {
@@ -32,10 +33,6 @@ const CartProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    setCartCount(cart.length);
-  }, [cart, cart.length]);
 
   const addToCart = async (product) => {
     const id_ = localStorage.getItem("id");
@@ -155,15 +152,25 @@ const CartProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    setUser(null);
+    setCart([]); // Clear the cart state
+    setIsUserLogin(false); // Set user login state to false
+    console.log("user logeed out");
+    console.log(cart);
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
+        logout,
         user,
         error,
         loading,
         addToCart,
-        cartCount,
         removeFromCart,
         increaseQuantity,
         decreaseQuantity,

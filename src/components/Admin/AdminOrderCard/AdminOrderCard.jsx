@@ -18,12 +18,12 @@ const AdminOrderCard = ({ order }) => {
           {order.items.map((item) => (
             <div
               key={item.id}
-              className="bg-primary p-1 rounded-3 me-2"
-              style={{ width: "80px" }}
+              className=" p-1 rounded-3 me-2 flex-shrink-0 mb-1"
+              style={{ width: "80px", backgroundColor: "var(--primary-color)" }}
             >
               <div>
                 <img
-                  className="rounded-2"
+                  className="rounded-2 bg-white"
                   style={{ height: "60px", width: "100%", objectFit: "cover" }}
                   src={item.image}
                   alt=""

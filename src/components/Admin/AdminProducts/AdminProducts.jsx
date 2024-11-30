@@ -92,6 +92,7 @@ const AdminProducts = () => {
                 <option value="hiking">Hiking</option>
                 <option value="walking">Walking</option>
                 <option value="skate">Skate</option>
+                <option value="sports">Sports</option>
               </select>
             </div>
           </div>
