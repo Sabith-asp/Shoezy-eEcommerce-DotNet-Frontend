@@ -39,13 +39,15 @@ const SignUp = () => {
       return;
     }
     const cart = [],
-      order = [];
+      order = [],
+      status = true;
     console.log(values);
     const updateUser = async (values) => {
       const users = await axios.post("http://localhost:5000/users", {
         ...values,
         cart,
         order,
+        status,
       });
     };
     updateUser(values);

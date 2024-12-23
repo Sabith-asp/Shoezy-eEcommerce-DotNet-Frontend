@@ -25,10 +25,28 @@ const Login = () => {
       .required("Password is required"),
   });
   const onSubmit = async (values, { resetForm }) => {
+    const { data } = await axios.get("http://localhost:5000/admin");
+
+    if (values.email === data.email && values.password === data.password) {
+      toast.success("Admin Login successful");
+      localStorage.setItem("adminId", data.id);
+      setTimeout(() => {
+        resetForm();
+
+        navigate("/admin");
+      }, 500);
+      return;
+    }
     const user = await axios.get("http://localhost:5000/users", {
       params: { email: values.email, password: values.password },
     });
+    console.log(user.data);
+
     if (user.data.length > 0) {
+      if (user.data[0].status === false) {
+        toast.error("User is blocked");
+        return;
+      }
       localStorage.setItem("id", user.data[0].id);
       localStorage.setItem("name", user.data[0].name);
       console.log(localStorage.getItem("id"));
@@ -53,7 +71,7 @@ const Login = () => {
       >
         <Form className="login p-4  rounded-5 ">
           <div className="d-flex flex-column text-black">
-            <label htmlFor="">Email</label>
+            <label htmlFor="email">Email</label>
             <Field
               className="login-input rounded-3 p-2"
               type="email"
@@ -63,7 +81,7 @@ const Login = () => {
             <ErrorMessage name="email" component="div" className="error" />
           </div>
           <div className="d-flex flex-column text-black">
-            <label htmlFor="">Password</label>
+            <label htmlFor="password">Password</label>
             <Field
               className="login-input rounded-3 p-2"
               type="password"

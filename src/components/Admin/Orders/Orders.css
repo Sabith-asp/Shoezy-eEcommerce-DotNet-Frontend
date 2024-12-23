@@ -1,0 +1,47 @@
+.each-order > p {
+  margin-bottom: 0 !important;
+}
+.each-order {
+  background-color: rgb(216, 216, 216);
+  min-height: 400px;
+  box-shadow: 0 5px 10px rgb(128, 128, 128);
+}
+.total-price {
+  bottom: 10px;
+  right: 10px;
+}
+
+.all-orders {
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.all-orders::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 0px;
+}
+
+.all-orders::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}
+
+.allorder-each {
+  background-color: var(--primary-color);
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.allorder-items {
+  overflow-x: auto;
+}
+
+.allorder-items::-webkit-scrollbar {
+  width: 0px;
+  height: 8px;
+}
+
+.allorder-items::-webkit-scrollbar-thumb {
+  background-color: rgb(160, 160, 160);
+  border-radius: 10px;
+}

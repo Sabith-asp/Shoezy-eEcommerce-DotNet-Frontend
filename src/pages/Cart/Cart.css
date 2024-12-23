@@ -59,8 +59,16 @@ modal css */
   overflow-y: auto;
   height: 45vh;
   border-radius: 8px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) #ccc;
+}
+
+.form-container::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 0px;
+}
+
+.form-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
 }
 
 .payment-img {
@@ -80,5 +88,9 @@ modal css */
 @media (max-width: 768px) {
   .cart {
     padding-top: 95px;
+  }
+  .form-container::-webkit-scrollbar {
+    width: 0px; /* Width of the scrollbar */
+    height: 0px;
   }
 }

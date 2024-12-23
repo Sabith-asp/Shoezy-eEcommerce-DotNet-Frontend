@@ -64,7 +64,6 @@ const ProductDetails = () => {
 
   //     fetchProductAndRelated();
   //   }, [id]);
-  console.log("heloooooooooooo");
 
   return (
     <>

@@ -4,14 +4,12 @@ import { GiShoppingBag } from "react-icons/gi";
 import { DataContext } from "../../context/Provider";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../context/CartProvider";
+import { FaUserCircle } from "react-icons/fa";
 const Navbar = () => {
   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
-  const { cart, cartCount } = useContext(CartContext);
-  const logout = () => {
-    localStorage.removeItem("id");
-    localStorage.removeItem("name");
-    setIsUserLogin(!isUserLogin);
-  };
+  const { cart, setCart, user, logout } = useContext(CartContext);
+  const cartCount = cart.length;
+  console.log("navbar rerendered");
 
   return (
     <nav className="navbar navbar-expand-md px-2 px-md-5 bg-body-tertiary fixed-top">
@@ -115,6 +113,12 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
+            {isUserLogin && (
+              <button className="user rounded-3 border-0 p-2">
+                <FaUserCircle />
+                <span className="ms-2">{user}</span>
+              </button>
+            )}
             <button className="border-0 position-relative d-none d-md-flex float-end mx-3 mb-3 mb-md-0 m-0 bg-transparent">
               <Link to="/cart">
                 <GiShoppingBag className="fs-3" />

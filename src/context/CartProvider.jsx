@@ -1,18 +1,22 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { DataContext } from "./Provider";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [cartCount, setCartCount] = useState(0);
+  const { isUserLogin, setIsUserLogin } = useContext(DataContext);
+  const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
   const id = localStorage.getItem("id");
   useEffect(() => {
-    fetchCart();
-  }, []);
+    if (id) {
+      fetchCart();
+    }
+  }, [isUserLogin, id]);
 
   const fetchCart = async () => {
     if (!id) {
@@ -21,6 +25,7 @@ const CartProvider = ({ children }) => {
     try {
       const response = await axios.get(`http://localhost:5000/users/${id}`);
       setCart(response.data.cart);
+      setUser(response.data.name);
     } catch (error) {
       setError(error.message || "Failed to fetch cart data");
       toast.error("Error in fetching cart data");
@@ -28,10 +33,6 @@ const CartProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    setCartCount(cart.length);
-  }, [cart]);
 
   const addToCart = async (product) => {
     const id_ = localStorage.getItem("id");
@@ -151,14 +152,25 @@ const CartProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    setUser(null);
+    setCart([]); // Clear the cart state
+    setIsUserLogin(false); // Set user login state to false
+    console.log("user logeed out");
+    console.log(cart);
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
+        logout,
+        user,
         error,
         loading,
         addToCart,
-        cartCount,
         removeFromCart,
         increaseQuantity,
         decreaseQuantity,

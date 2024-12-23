@@ -9,8 +9,8 @@ const CartItem = ({ product }) => {
     useContext(CartContext);
 
   return (
-    <div className="cart-item py-2 px-4 p-md-4 py-md-0 mb-3 bg-secondary-subtle">
-      <div className="row ms- align-items-center position-relative">
+    <div className="cart-item position-relative py-2 px-4 p-md-4 py-md-0 mb-3 bg-secondary-subtle">
+      <div className="row align-items-center position-relative">
         <div className="cart-item-img my-2 col-4 col-md-5 col-lg-3 p-0">
           <img src={product.image} alt="" />
         </div>
@@ -18,17 +18,19 @@ const CartItem = ({ product }) => {
           <h5 className="ellipsis fw-bold">{product.title}</h5>
           <p>{product.brand}</p>
           <div>
-            <p>
-              ₹{product.price}/-
-              <span className="ms-2">₹{product.price * product.quantity}</span>
-            </p>
+            <div className="cart-item-price position-absolute float-end">
+              <h5 className="float-end"> ₹{product.price}/-</h5>
+              <h2 className="ms-2 fw-bold">
+                ₹{product.price * product.quantity}
+              </h2>
+            </div>
             <div>
               <button
                 onClick={() => {
                   decreaseQuantity(product.id);
                   console.log("clicked");
                 }}
-                className="qty-button border-0 bg-transparent fs-4"
+                className="qty-button border-0 bg-transparent fs-3"
               >
                 <FaCircleMinus className="qty-button" />
               </button>
@@ -36,9 +38,8 @@ const CartItem = ({ product }) => {
               <button
                 onClick={() => {
                   increaseQuantity(product.id);
-                  console.log("clicked");
                 }}
-                className="border-0 bg-transparent fs-4"
+                className="border-0 bg-transparent fs-3"
               >
                 <FaCirclePlus className="qty-button" />
               </button>

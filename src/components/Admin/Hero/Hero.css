@@ -1,0 +1,11 @@
+/* .admin-hero {
+  height: 90vh;
+} */
+.hero-btn {
+  box-shadow: 0 0px 8px rgb(130, 130, 130);
+  transition: 0.2s ease-in-out;
+}
+.hero-btn:hover {
+  box-shadow: 0 3px 15px rgb(85, 85, 85);
+  transform: scale(1.035);
+}
