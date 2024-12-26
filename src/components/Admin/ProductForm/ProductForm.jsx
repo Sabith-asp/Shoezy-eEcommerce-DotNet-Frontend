@@ -4,12 +4,19 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import axios from "axios";
 import "./ProductForm.css";
-import { AdminContext } from "../../../context/AdminProvider";
+import {
+  addProduct,
+  editProduct,
+  setIsAddModalOpen,
+  setIsEditModalOpen,
+} from "../../../Redux/AdminSlice/adminSlice";
+import { useDispatch } from "react-redux";
 
 const ProductForm = ({ productId }) => {
+  const dispatch = useDispatch();
   const [editData, setEditData] = useState({});
 
-  const { editProduct, addProduct } = useContext(AdminContext);
+  //   const { editProduct, addProduct } = useContext(AdminContext);
 
   const fetchProduct = async () => {
     if (!productId) return;
@@ -63,10 +70,12 @@ const ProductForm = ({ productId }) => {
 
   const handleSubmit = (values) => {
     if (!productId) {
-      addProduct(values);
+      dispatch(addProduct(values));
+      dispatch(setIsAddModalOpen(false));
       return;
     }
-    editProduct(productId, values);
+    dispatch(editProduct({ id: productId, values }));
+    dispatch(setIsEditModalOpen(false));
   };
 
   return (

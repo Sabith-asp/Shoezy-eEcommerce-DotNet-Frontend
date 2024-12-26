@@ -5,12 +5,27 @@ import RelatedItems from "../RelatedItems/RelatedItems";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../context/CartProvider";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { addToCart } from "../../Redux/CartSlice/CartSlice";
 
 const ProductDetails = () => {
-  const { addToCart } = useContext(CartContext);
+  //   const { addToCart } = useContext(CartContext);
   const [productDetail, setProductDetail] = useState({});
   const [relatedProduct, setRelatedProduct] = useState([]);
   const { id } = useParams();
+
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("id");
+
+  const handleAddToCart = (product) => {
+    if (!userId) {
+      toast.error("Please log in to add products to the cart");
+      return;
+    }
+
+    dispatch(addToCart({ userId, product }));
+  };
 
   useEffect(() => {
     const fetchSpecific = async () => {
@@ -98,7 +113,7 @@ const ProductDetails = () => {
             <span>
               <button
                 onClick={() => {
-                  addToCart(productDetail);
+                  handleAddToCart(productDetail);
                 }}
                 className="fs-5 px-3 add-to-cart-btn mt-3 float-end float-md-start rounded"
               >

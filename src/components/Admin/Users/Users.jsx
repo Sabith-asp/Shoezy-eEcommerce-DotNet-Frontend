@@ -1,44 +1,43 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import "./Users.css";
-import { AdminContext } from "../../../context/AdminProvider.jsx";
 import Modal from "../Modal/Modal.jsx";
 import AdminCartCard from "../AdminCartCard/AdminCartCard.jsx";
 import { TbShoppingCartX } from "react-icons/tb";
 import { BsBagXFill } from "react-icons/bs";
 import AdminOrderCard from "../AdminOrderCard/AdminOrderCard.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchUsers,
+  setIsUserCartOpen,
+  setIsUserOrderOpen,
+} from "../../../Redux/AdminSlice/adminSlice.jsx";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
   const [selectedUser, setSelectedUser] = useState(null);
   const [userCart, setUserCart] = useState([]);
   const [userOrders, setUserOrders] = useState([]);
-
-  const {
-    isUserCartOpen,
-    isUserOrderOpen,
-    setIsUserCartOpen,
-    setIsUserOrderOpen,
-  } = useContext(AdminContext);
+  const { isUserCartOpen, isUserOrderOpen, users } = useSelector(
+    (state) => state.admin
+  );
+  //   const {
+  //   isUserCartOpen,
+  //   isUserOrderOpen,
+  //   setIsUserCartOpen,
+  //   setIsUserOrderOpen,
+  //   } = useContext(AdminContext);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:5000/users");
-        setUsers(data);
-      } catch (error) {
-        console.log("error in fetching users");
-      }
-    };
-    fetchUsers();
-  }, []);
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   const openUserCart = async (id) => {
     try {
       const { data } = await axios.get(`http://localhost:5000/users/${id}`);
       setUserCart(data.cart);
       setSelectedUser(id);
-      setIsUserCartOpen(true);
+      dispatch(setIsUserCartOpen(true));
     } catch (error) {
       console.log("error in fetching user orders", error);
     }
@@ -48,18 +47,18 @@ const Users = () => {
       const { data } = await axios.get(`http://localhost:5000/users/${id}`);
       setUserOrders(data.order);
       setSelectedUser(id);
-      setIsUserOrderOpen(true);
+      dispatch(setIsUserOrderOpen(true));
     } catch (error) {
       console.log("error in fetching user orders", error);
     }
   };
   const closeUserCart = () => {
-    setIsUserCartOpen(false);
+    dispatch(setIsUserCartOpen(false));
     setSelectedUser(null);
     setUserCart([]);
   };
   const closeUserOrder = () => {
-    setIsUserOrderOpen(false);
+    dispatch(setIsUserOrderOpen(false));
     setSelectedUser(null);
     setUserOrders([]);
   };

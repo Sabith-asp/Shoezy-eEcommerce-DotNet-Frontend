@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { AdminContext } from "../../../context/AdminProvider";
+import { useDispatch, useSelector } from "react-redux";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const CircularChart = () => {
-  const { products } = useContext(AdminContext);
+  //   const { products } = useContext(AdminContext);
+  const { products } = useSelector((state) => state.admin);
+  console.log(products);
 
   const shoeCategoryCount = (category) =>
     products.filter((product) => product.category === category).length;

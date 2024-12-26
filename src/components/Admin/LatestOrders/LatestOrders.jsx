@@ -33,7 +33,7 @@ const LatestOrders = () => {
               .slice()
               .reverse()
               .map((order) => (
-                <tr>
+                <tr key={order.id}>
                   <td>{order.id}</td>
                   <td>{order.items.length}</td>
                   <td>{order.name}</td>

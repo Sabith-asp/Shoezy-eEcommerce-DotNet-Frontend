@@ -5,37 +5,46 @@ import axios from "axios";
 import Loader from "../../Loader/Loader";
 import Modal from "../Modal/Modal";
 import EditForm from "../ProductForm/ProductForm";
-import { AdminContext } from "../../../context/AdminProvider";
+import {
+  deleteProduct,
+  setIsAddModalOpen,
+  setIsEditModalOpen,
+} from "../../../Redux/AdminSlice/adminSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const AdminProducts = () => {
-  const {
-    products,
-    isEditModalOpen,
-    setIsEditModalOpen,
-    isAddModalOpen,
-    setIsAddModalOpen,
-    deleteProduct,
-  } = useContext(AdminContext);
+  //   const {
+  //     products,
+  //     isEditModalOpen,
+  //     setIsEditModalOpen,
+  //     isAddModalOpen,
+  //     setIsAddModalOpen,
+  //     deleteProduct,
+  //   } = useContext(AdminContext);
+  const dispatch = useDispatch();
   const [category, setCategory] = useState("All");
   const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const { products, isEditModalOpen, isAddModalOpen } = useSelector(
+    (state) => state.admin
+  );
 
   const openEditModal = (id) => {
     console.log(id);
     setSelectedProductId(id);
-    setIsEditModalOpen(true);
+    dispatch(setIsEditModalOpen(true));
   };
 
   const closeEditModal = () => {
-    setIsEditModalOpen(false);
+    dispatch(setIsEditModalOpen(false));
   };
 
   const openAddModal = () => {
-    setIsAddModalOpen(true);
+    dispatch(setIsAddModalOpen(true));
   };
   const closeAddModal = () => {
-    setIsAddModalOpen(false);
+    dispatch(setIsAddModalOpen(false));
   };
 
   console.log(category);
@@ -53,7 +62,7 @@ const AdminProducts = () => {
       } catch (error) {}
     };
     fetchProduct();
-  }, [category, isEditModalOpen, isAddModalOpen, products]);
+  }, [category, products]);
   if (loading) return <Loader />;
 
   return (
@@ -146,7 +155,7 @@ const AdminProducts = () => {
                         Edit
                       </button>
                       <button
-                        onClick={() => deleteProduct(item.id)}
+                        onClick={() => dispatch(deleteProduct(item.id))}
                         className="admin-btn delete rounded-3"
                       >
                         Delete

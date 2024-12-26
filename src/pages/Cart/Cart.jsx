@@ -2,17 +2,29 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import "./Cart.css";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import CartItem from "../../components/CartItem/CartItem";
-import { CartContext } from "../../context/CartProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../Redux/CartSlice/CartSlice";
+import { fetchOrders } from "../../Redux/OrderSlice/orderSlice";
 
 const Cart = () => {
+  const { cart, loading, error, user } = useSelector((state) => state.cart);
+
+  const userId = localStorage.getItem("id");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchCart(userId));
+    }
+  }, [dispatch, userId]);
+
   const [showModal, setShowModal] = useState(false);
   const [payment, setPayment] = useState(null);
   const navigate = useNavigate();
-  const { cart, cartCount } = useContext(CartContext);
   console.log("cert rerendered");
 
   const totalPrice = useMemo(() => {
@@ -76,6 +88,8 @@ const Cart = () => {
       });
       await axios.patch(`http://localhost:5000/users/${id}`, { cart: [] });
 
+      dispatch(fetchOrders(id));
+
       const productUpdate = async () => {
         try {
           for (const cartItem of cart) {
@@ -129,7 +143,7 @@ const Cart = () => {
             <Link to="/cart">
               <button
                 className={`checkout-btn w-100 border-0 text-white rounded-2 py-2`}
-                disabled={cartCount === 0}
+                disabled={cart.length === 0}
                 onClick={openModal}
               >
                 Place Order

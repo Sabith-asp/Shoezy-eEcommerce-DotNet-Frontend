@@ -6,10 +6,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/Provider";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { login } from "../../Redux/UserSlice/userSlice";
 
 const Login = () => {
-  const { toggleAuth, setToggleAuth, setIsUserLogin, setId, setCartCount } =
-    useContext(DataContext);
+  const { toggleAuth, setToggleAuth } = useContext(DataContext);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const initialLoginValues = {
@@ -50,8 +53,9 @@ const Login = () => {
       localStorage.setItem("id", user.data[0].id);
       localStorage.setItem("name", user.data[0].name);
       console.log(localStorage.getItem("id"));
-      setIsUserLogin(true);
-      setId(user.data[0].id);
+      //   setIsUserLogin(true);
+      dispatch(login());
+      //   setId(user.data[0].id);
       toast.success("Loggin successful");
       setTimeout(() => {
         resetForm();

@@ -5,11 +5,28 @@ import { DataContext } from "../../context/Provider";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../context/CartProvider";
 import { FaUserCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../Redux/CartSlice/CartSlice";
+import { fetchUser, logout } from "../../Redux/UserSlice/userSlice";
 const Navbar = () => {
-  const { isUserLogin, setIsUserLogin } = useContext(DataContext);
-  const { cart, setCart, user, logout } = useContext(CartContext);
+  //   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
+  const { setCart, user } = useContext(CartContext);
+  const { cart } = useSelector((state) => state.cart);
   const cartCount = cart.length;
   console.log("navbar rerendered");
+  const userId = localStorage.getItem("id");
+  const dispatch = useDispatch();
+  const { login } = useSelector((state) => state.user);
+
+  const { userDetail } = useSelector((state) => state.user);
+  console.log(userDetail);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchCart(userId));
+      dispatch(fetchUser(userId));
+    }
+  }, [dispatch, userId]);
 
   return (
     <nav className="navbar navbar-expand-md px-2 px-md-5 bg-body-tertiary fixed-top">
@@ -18,7 +35,7 @@ const Navbar = () => {
           ShoesY
         </a>
         <div>
-          {!isUserLogin && (
+          {!login && (
             <button className=" d-md-none authbutton border-1 mx-0 mx-md-3 my-1 rounded-pill px-3 py-1">
               <Link to="/auth">Login</Link>
             </button>
@@ -113,10 +130,10 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            {isUserLogin && (
+            {login && (
               <button className="user rounded-3 border-0 p-2">
                 <FaUserCircle />
-                <span className="ms-2">{user}</span>
+                <span className="ms-2">{userDetail.name}</span>
               </button>
             )}
             <button className="border-0 position-relative d-none d-md-flex float-end mx-3 mb-3 mb-md-0 m-0 bg-transparent">
@@ -140,14 +157,17 @@ const Navbar = () => {
                 </button>
               </form>
             </div> */}
-            {!isUserLogin ? (
+            {!login ? (
               <button className="authbutton border-1 float-end mx-0 mx-md-3 my-3 rounded-pill px-3 py-1">
                 <Link to="/auth">Login</Link>
               </button>
             ) : (
               <button
                 data-bs-dismiss="offcanvas"
-                onClick={logout}
+                onClick={() => {
+                  dispatch(logout());
+                  //   setIsUserLogin(false);
+                }}
                 className="authbutton border-1 float-end mx-0 mx-md-3 my-3 rounded-pill px-3 py-1"
               >
                 Logout

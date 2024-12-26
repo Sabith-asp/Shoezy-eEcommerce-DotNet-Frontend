@@ -3,21 +3,18 @@ import "./OrderHistory.css";
 import { CartContext } from "../../context/CartProvider";
 import axios from "axios";
 import { MdOutlinePayment } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "../../Redux/OrderSlice/orderSlice";
 const OrderHistory = () => {
-  const { cart } = useContext(CartContext);
-  const [orders, setOrders] = useState([]);
-  useEffect(() => {
-    const id = localStorage.getItem("id");
-    const fetchData = async () => {
-      if (!id) {
-        return;
-      }
-      const response = await axios.get(`http://localhost:5000/users/${id}`);
-      setOrders(response.data.order);
-    };
-    fetchData();
-  }, [cart]);
+  const dispatch = useDispatch();
+  const { orders, loading, error } = useSelector((state) => state.orders);
+  const userId = localStorage.getItem("id");
 
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchOrders(userId)); // Fetch orders when the component mounts
+    }
+  }, [dispatch, userId]);
   return (
     <section className="order container">
       <div className="row d-flex align-items-center justify-content-center">

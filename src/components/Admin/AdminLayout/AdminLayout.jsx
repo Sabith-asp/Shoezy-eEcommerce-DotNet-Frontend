@@ -8,6 +8,8 @@ import { AiFillProduct } from "react-icons/ai";
 import { FaUserSlash, FaCircleUser } from "react-icons/fa6";
 import { MdHome } from "react-icons/md";
 import { BiSolidError, BiSolidPurchaseTag } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../../Redux/AdminSlice/adminSlice";
 
 const AdminLayout = () => {
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ const AdminLayout = () => {
       setIsAdminLogin(true);
     }
   }, [adminId]);
+
   if (!adminId)
     return (
       <div className=" vh-100 vw-100 d-flex flex-column align-items-center justify-content-center">

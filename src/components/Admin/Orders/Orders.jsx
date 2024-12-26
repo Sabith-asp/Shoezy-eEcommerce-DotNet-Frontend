@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AdminContext } from "../../../context/AdminProvider";
 import axios from "axios";
 import "./Orders.css";
 import { FaCalendarAlt } from "react-icons/fa";

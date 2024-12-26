@@ -3,10 +3,32 @@ import { ImCross } from "react-icons/im";
 import "./CartItem.css";
 import { FaCirclePlus, FaCircleMinus } from "react-icons/fa6";
 import { CartContext } from "../../context/CartProvider";
+import {
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../../Redux/CartSlice/CartSlice";
+import { useDispatch } from "react-redux";
 
 const CartItem = ({ product }) => {
-  const { removeFromCart, increaseQuantity, decreaseQuantity } =
-    useContext(CartContext);
+  //   const { removeFromCart, increaseQuantity, decreaseQuantity } =
+  //     useContext(CartContext);
+
+  const dispatch = useDispatch();
+
+  const userId = localStorage.getItem("id");
+
+  const handleIncreaseQuantity = (productId) => {
+    dispatch(increaseQuantity({ userId, productId }));
+  };
+
+  const handleDecreaseQuantity = (productId) => {
+    dispatch(decreaseQuantity({ userId, productId }));
+  };
+
+  const handleRemoveFromCart = (productId) => {
+    dispatch(removeFromCart({ userId, productId }));
+  };
 
   return (
     <div className="cart-item position-relative py-2 px-4 p-md-4 py-md-0 mb-3 bg-secondary-subtle">
@@ -27,7 +49,8 @@ const CartItem = ({ product }) => {
             <div>
               <button
                 onClick={() => {
-                  decreaseQuantity(product.id);
+                  handleDecreaseQuantity(product.id);
+
                   console.log("clicked");
                 }}
                 className="qty-button border-0 bg-transparent fs-3"
@@ -37,7 +60,7 @@ const CartItem = ({ product }) => {
               <span>{product.quantity}</span>
               <button
                 onClick={() => {
-                  increaseQuantity(product.id);
+                  handleIncreaseQuantity(product.id);
                 }}
                 className="border-0 bg-transparent fs-3"
               >
@@ -49,7 +72,7 @@ const CartItem = ({ product }) => {
         <span className="position-absolute pt-0 pe-0 pt-md-3 pe-md-2 top-0 text-end">
           <button
             onClick={() => {
-              removeFromCart(product.id);
+              handleRemoveFromCart(product.id);
             }}
             className="rounded border-1 border-danger pb-1 bg-white"
           >

@@ -1,26 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeUserStatus,
+  fetchUsers,
+} from "../../../Redux/AdminSlice/adminSlice";
 import "./Block.css";
-import { AdminContext } from "../../../context/AdminProvider";
 
 const Block = () => {
-  const {
-    users,
-    userStatus,
-    setUsers,
-    blockUpdater,
-    setBlockUpdater,
-    blockedUsers,
-    setBlockedUsers,
-  } = useContext(AdminContext);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  const { users, blockedUsers } = useSelector((state) => state.admin);
 
   return (
     <div className="container-fluid p-0 mt-2">
-      <div className="blocked-users   p-2 rounded-4">
-        <h3 className="fw-semibold mb-0 mt-1">Block User</h3> <hr />
+      <div className="blocked-users p-2 rounded-4">
+        <h3 className="fw-semibold mb-0 mt-1">Block User</h3>
+        <hr />
         <div>
           <h4 className="mt-2 text-danger fw-semibold">Blocked Users List</h4>
           <div className="scrollable-table mt-2">
-            <table className=" mt-2 w-100 table-border">
+            <table className="mt-2 w-100 table-border">
               <thead>
                 <tr className="table-title">
                   <th>ID</th>
@@ -38,14 +41,15 @@ const Block = () => {
                       <td>{user.email}</td>
                       <td>
                         <button
-                          onClick={() => {
-                            setBlockedUsers((prev) =>
-                              prev.filter((item) => item.id !== user.id)
-                            );
-                            userStatus(user.id, user.status);
-                            setBlockUpdater(!blockUpdater);
-                          }}
-                          className=" rounded-3 border-0 p-1 px-2 pt-2 bg-warning"
+                          onClick={() =>
+                            dispatch(
+                              changeUserStatus({
+                                id: user.id,
+                                status: user.status,
+                              })
+                            )
+                          }
+                          className="rounded-3 border-0 p-1 px-2 pt-2 bg-warning"
                         >
                           Unblock
                         </button>
@@ -54,7 +58,7 @@ const Block = () => {
                   ))
                 ) : (
                   <tr>
-                    <td>
+                    <td colSpan="4">
                       <h4 className="mt-3">No blocked users</h4>
                     </td>
                   </tr>
@@ -64,7 +68,7 @@ const Block = () => {
           </div>
           <h4 className="mt-2 fw-semibold">Users List</h4>
           <div className="block-table mt-2">
-            <table className=" mt-2 w-100 table-border">
+            <table className="mt-2 w-100 table-border">
               <thead>
                 <tr className="table-title">
                   <th>ID</th>
@@ -81,12 +85,15 @@ const Block = () => {
                     <td>{user.email}</td>
                     <td>
                       <button
-                        onClick={() => {
-                          setBlockedUsers((prev) => [...prev, user]);
-                          userStatus(user.id);
-                          setBlockUpdater(!blockUpdater);
-                        }}
-                        className=" rounded-3 border-0 px-3 p-1 pt-2 bg-warning"
+                        onClick={() =>
+                          dispatch(
+                            changeUserStatus({
+                              id: user.id,
+                              newStatus: user.status,
+                            })
+                          )
+                        }
+                        className="rounded-3 border-0 px-3 p-1 pt-2 bg-warning"
                       >
                         Block
                       </button>

@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Details.css";
 import CountUp from "react-countup";
-import { AdminContext } from "../../../context/AdminProvider";
 import LatestOrders from "../LatestOrders/LatestOrders";
 import CircularChart from "../CircularChart/CircularChart";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../../Redux/AdminSlice/adminSlice";
 
 const Details = () => {
-  const { products, users } = useContext(AdminContext);
+  //   const { products, users } = useContext(AdminContext);
+  const { products, users } = useSelector((state) => state.admin);
+  console.log(products, "hi", users, "new values");
+
   const salesAmount = users.reduce((totalAmount, user) => {
     const userTotal = user.order.reduce((sum, order) => sum + order.total, 0);
     return totalAmount + userTotal;
@@ -16,6 +20,10 @@ const Details = () => {
     (total, item) => total + item.quantity,
     0
   );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
 
   //   const salesAmount=users.reduce((acc,user.order.)=>acc+curr)
   return (
