@@ -8,6 +8,7 @@ import { CartContext } from "../../context/CartProvider";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { addToCart } from "../../Redux/CartSlice/CartSlice";
+import api from "../../api/api";
 
 const ProductDetails = () => {
   //   const { addToCart } = useContext(CartContext);
@@ -16,69 +17,58 @@ const ProductDetails = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
-  const userId = localStorage.getItem("id");
+  const accessToken = localStorage.getItem("accessToken");
 
-  const handleAddToCart = (product) => {
-    if (!userId) {
+  const handleAddToCart = (productid) => {
+    if (!accessToken) {
       toast.error("Please log in to add products to the cart");
       return;
     }
 
-    dispatch(addToCart({ userId, product }));
+    dispatch(addToCart(productid));
   };
 
   useEffect(() => {
     const fetchSpecific = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/products/${id}`
-        );
+        const response = await api.get(`/api/Product/user/${id}`);
 
-        setProductDetail(response.data);
-      } catch (error) {}
+        setProductDetail(response?.data?.data);
+        const productdata = response?.data?.data;
+        console.log("fetch specific working");
+        console.log(productdata);
+
+        // if (productdata.category) {
+        //   console.log("fetching realted");
+
+        //   fetchRelated();
+        // }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     };
     fetchSpecific();
   }, [id]);
+
   useEffect(() => {
     const fetchRelated = async () => {
       if (!productDetail.category || !productDetail.id) return;
+
       try {
-        const response = await axios.get(`http://localhost:5000/products/`);
-        const related = response.data.filter(
-          (product) =>
-            product.category === productDetail.category &&
-            product.id !== productDetail.id
+        console.log("category is", productDetail.category);
+        const response = await api.get(
+          `api/Product/get-related?id=${productDetail.id}&category=${productDetail.category}`
         );
-        setRelatedProduct(related.slice(-10));
+        console.log(
+          "fetching related products",
+          response.data?.data?.slice(-10)
+        );
+        setRelatedProduct(response.data?.data?.slice(-10));
       } catch (error) {}
     };
+
     fetchRelated();
-  }, [productDetail.category, productDetail.id]);
-
-  //   useEffect(() => {
-  //     const fetchProductAndRelated = async () => {
-  //       try {
-  //         const response = await axios.get(
-  //           `http://localhost:5000/products/${id}`
-  //         );
-  //         const product = response.data;
-  //         setProductDetail(product);
-
-  //         // Fetch related products
-  //         const relatedResponse = await axios.get(
-  //           `http://localhost:5000/products/`
-  //         );
-  //         const related = relatedResponse.data.filter(
-  //           (p) => p.category === product.category && p.id !== product.id
-  //         );
-  //         setRelatedProduct(related.slice(-10));
-  //       } catch (error) {
-  //         console.error("Error fetching product or related products:", error);
-  //       }
-  //     };
-
-  //     fetchProductAndRelated();
-  //   }, [id]);
+  }, [productDetail]);
 
   return (
     <>
@@ -113,7 +103,7 @@ const ProductDetails = () => {
             <span>
               <button
                 onClick={() => {
-                  handleAddToCart(productDetail);
+                  handleAddToCart(productDetail.id);
                 }}
                 className="fs-5 px-3 add-to-cart-btn mt-3 float-end float-md-start rounded"
               >

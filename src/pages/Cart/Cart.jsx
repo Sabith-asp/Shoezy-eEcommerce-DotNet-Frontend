@@ -13,26 +13,26 @@ import { fetchOrders } from "../../Redux/OrderSlice/orderSlice";
 const Cart = () => {
   const { cart, loading, error, user } = useSelector((state) => state.cart);
 
-  const userId = localStorage.getItem("id");
+  const accessToken = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchCart(userId));
+    if (accessToken) {
+      dispatch(fetchCart());
     }
-  }, [dispatch, userId]);
+  }, [dispatch, accessToken]);
 
   const [showModal, setShowModal] = useState(false);
   const [payment, setPayment] = useState(null);
   const navigate = useNavigate();
   console.log("cert rerendered");
 
-  const totalPrice = useMemo(() => {
-    return cart.reduce(
-      (acc, item) => acc + Number(item.price) * Number(item.quantity),
-      0
-    );
-  }, [cart]);
+  //   const totalPrice = useMemo(() => {
+  //     return cart.reduce(
+  //       (acc, item) => acc + Number(item.price) * Number(item.quantity),
+  //       0
+  //     );
+  //   }, []);
 
   const modalClose = () => {
     setShowModal(false);
@@ -121,14 +121,14 @@ const Cart = () => {
     <div className="cart container-md">
       <div className="row">
         <div className="left3 pt-0 p-2 col-12 col-sm-7">
-          {cart.length === 0 ? (
+          {!cart || cart?.cartitems?.length == 0 ? (
             <div>
               <h3 className="fw-bold">No items in cart</h3>
             </div>
           ) : (
             <div>
-              {cart.map((item) => (
-                <CartItem key={item.id} product={item} />
+              {cart?.cartitems?.map((item) => (
+                <CartItem key={item.cartItemId} product={item} />
               ))}
             </div>
           )}
@@ -139,11 +139,11 @@ const Cart = () => {
           <div className="right3 p-4 ms-0 ms-md-3 bg-secondary-subtle">
             <h4>Cart Summary</h4>
             <p>Total Price : </p>
-            <h1 className="fw-bold">₹{totalPrice}</h1>
+            <h1 className="fw-bold">₹{cart?.totalPrice || 0}</h1>
             <Link to="/cart">
               <button
                 className={`checkout-btn w-100 border-0 text-white rounded-2 py-2`}
-                disabled={cart.length === 0}
+                disabled={cart ? true : false}
                 onClick={openModal}
               >
                 Place Order

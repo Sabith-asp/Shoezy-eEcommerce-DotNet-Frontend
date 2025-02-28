@@ -8,26 +8,46 @@ import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../Redux/CartSlice/CartSlice";
 import { fetchUser, logout } from "../../Redux/UserSlice/userSlice";
+import { fetchProducts } from "../../Redux/ProductSlice/productSlice";
+import { fetchOrders } from "../../Redux/OrderSlice/orderSlice";
 const Navbar = () => {
   //   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
   const { setCart, user } = useContext(CartContext);
   const { cart } = useSelector((state) => state.cart);
-  const cartCount = cart.length;
+  //   const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
   console.log("navbar rerendered");
-  const userId = localStorage.getItem("id");
+  const accessToken = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
   const { login } = useSelector((state) => state.user);
 
   const { userDetail } = useSelector((state) => state.user);
   console.log(userDetail);
+  console.log(login);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchCart(userId));
-      dispatch(fetchUser(userId));
-    }
-  }, [dispatch, userId]);
+    if (accessToken) {
+      console.log(accessToken);
 
+      dispatch(fetchUser());
+
+      dispatch(fetchCart());
+      //   dispatch(fetchProducts());
+      console.log("cart item decreased");
+    }
+  }, [dispatch, login]);
+  useEffect(() => {
+    setCartCount(cart?.cartitems?.length);
+  }, [cart]);
+
+  useEffect(() => {
+    console.log("Login state changed: ", login);
+    console.log("User details updated: ", userDetail);
+  }, [login, userDetail]);
+  console.log(
+    "Redux State: ",
+    useSelector((state) => state)
+  );
   return (
     <nav className="navbar navbar-expand-md px-2 px-md-5 bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -48,7 +68,9 @@ const Navbar = () => {
             <Link to="/cart">
               <GiShoppingBag />
             </Link>
-            <span className="position-absolute cart-count">{cartCount}</span>
+            <span className="position-absolute cart-count">
+              {cartCount || 0}
+            </span>
           </button>
           <button
             className="navbar-toggler p-0"
@@ -140,23 +162,11 @@ const Navbar = () => {
               <Link to="/cart">
                 <GiShoppingBag className="fs-3" />
                 <span className="position-absolute cart-count-md">
-                  {cartCount}
+                  {cartCount || 0}
                 </span>
               </Link>
             </button>
-            {/* <div>
-              <form className="d-flex mt-3 mt-md-0 w-100" role="search">
-                <input
-                  className="search-input ps-3 p-1 w-75 border-0"
-                  placeholder="type here.."
-                  type="search"
-                  aria-label="Search"
-                />
-                <button className="w-25 submit-button" type="submit">
-                  Search
-                </button>
-              </form>
-            </div> */}
+
             {!login ? (
               <button className="authbutton border-1 float-end mx-0 mx-md-3 my-3 rounded-pill px-3 py-1">
                 <Link to="/auth">Login</Link>

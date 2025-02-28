@@ -11,9 +11,6 @@ import {
 import { useDispatch } from "react-redux";
 
 const CartItem = ({ product }) => {
-  //   const { removeFromCart, increaseQuantity, decreaseQuantity } =
-  //     useContext(CartContext);
-
   const dispatch = useDispatch();
 
   const userId = localStorage.getItem("id");
@@ -26,25 +23,23 @@ const CartItem = ({ product }) => {
     dispatch(decreaseQuantity({ userId, productId }));
   };
 
-  const handleRemoveFromCart = (productId) => {
-    dispatch(removeFromCart({ userId, productId }));
+  const handleRemoveFromCart = (cartItemId) => {
+    dispatch(removeFromCart(cartItemId));
   };
 
   return (
     <div className="cart-item position-relative py-2 px-4 p-md-4 py-md-0 mb-3 bg-secondary-subtle">
       <div className="row align-items-center position-relative">
         <div className="cart-item-img my-2 col-4 col-md-5 col-lg-3 p-0">
-          <img src={product.image} alt="" />
+          <img src={product.image} alt={product.productName} />
         </div>
         <div className="cart-item-details ms-2 col-6 ">
-          <h5 className="ellipsis fw-bold">{product.title}</h5>
-          <p>{product.brand}</p>
+          <h5 className="ellipsis fw-bold">{product.productName}</h5>
+          {/* <p>{product.brand}</p> */}
           <div>
             <div className="cart-item-price position-absolute float-end">
               <h5 className="float-end"> ₹{product.price}/-</h5>
-              <h2 className="ms-2 fw-bold">
-                ₹{product.price * product.quantity}
-              </h2>
+              <h2 className="ms-2 fw-bold">₹{product.totalAmount}</h2>
             </div>
             <div>
               <button
@@ -72,7 +67,7 @@ const CartItem = ({ product }) => {
         <span className="position-absolute pt-0 pe-0 pt-md-3 pe-md-2 top-0 text-end">
           <button
             onClick={() => {
-              handleRemoveFromCart(product.id);
+              handleRemoveFromCart(product.cartItemId);
             }}
             className="rounded border-1 border-danger pb-1 bg-white"
           >

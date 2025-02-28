@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Login.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/Provider";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { login } from "../../Redux/UserSlice/userSlice";
+import { fetchUser, login } from "../../Redux/UserSlice/userSlice";
+import api from "../../api/api";
+import { fetchCart } from "../../Redux/CartSlice/CartSlice";
 
 const Login = () => {
   const { toggleAuth, setToggleAuth } = useContext(DataContext);
@@ -16,54 +18,44 @@ const Login = () => {
 
   const navigate = useNavigate();
   const initialLoginValues = {
-    email: "",
+    username: "",
     password: "",
   };
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Invalid email format")
-      .required("Email is required"),
+    username: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9_]+$/,
+        "Username can only contain letters, numbers, and underscores"
+      )
+      .min(3, "Username must be at least 3 characters")
+      .max(15, "Username cannot be more than 15 characters")
+      .required("Username is required"),
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
   });
   const onSubmit = async (values, { resetForm }) => {
-    const { data } = await axios.get("http://localhost:5000/admin");
+    try {
+      const { data } = await api.post("/api/users/login", {
+        ...values,
+      });
+      console.log(data);
 
-    if (values.email === data.email && values.password === data.password) {
-      toast.success("Admin Login successful");
-      localStorage.setItem("adminId", data.id);
+      localStorage.setItem("accessToken", data?.data?.accessToken);
+      localStorage.setItem("refreshToken", data?.data?.refreshToken);
+      toast.success("User Login successful");
       setTimeout(() => {
         resetForm();
-
-        navigate("/admin");
-      }, 500);
-      return;
-    }
-    const user = await axios.get("http://localhost:5000/users", {
-      params: { email: values.email, password: values.password },
-    });
-    console.log(user.data);
-
-    if (user.data.length > 0) {
-      if (user.data[0].status === false) {
-        toast.error("User is blocked");
-        return;
-      }
-      localStorage.setItem("id", user.data[0].id);
-      localStorage.setItem("name", user.data[0].name);
-      console.log(localStorage.getItem("id"));
-      //   setIsUserLogin(true);
-      dispatch(login());
-      //   setId(user.data[0].id);
-      toast.success("Loggin successful");
-      setTimeout(() => {
-        resetForm();
-
         navigate("/");
-      }, 500);
-    } else {
-      toast.error("Wrong Email or Password");
+      }, 100);
+      dispatch(fetchUser());
+      dispatch(fetchCart());
+    } catch (error) {
+      if (error.response) {
+        console.log(error);
+
+        toast.error(`${error?.response?.data?.message}`);
+      }
     }
   };
   return (
@@ -75,14 +67,14 @@ const Login = () => {
       >
         <Form className="login p-4  rounded-5 ">
           <div className="d-flex flex-column text-black">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Username</label>
             <Field
               className="login-input rounded-3 p-2"
-              type="email"
-              name="email"
-              id="email"
+              type="text"
+              name="username"
+              id="username"
             />
-            <ErrorMessage name="email" component="div" className="error" />
+            <ErrorMessage name="username" component="div" className="error" />
           </div>
           <div className="d-flex flex-column text-black">
             <label htmlFor="password">Password</label>

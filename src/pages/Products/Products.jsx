@@ -3,23 +3,35 @@ import "./Products.css";
 import { CartContext } from "../../context/CartProvider";
 import axios from "axios";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import api from "../../api/api";
+import toast from "react-hot-toast";
+import { fetchProducts } from "../../Redux/ProductSlice/productSlice";
 
 const Products = () => {
-  const [data, setData] = useState([]);
+  //   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { category } = useParams();
 
+  const { products } = useSelector((state) => state.products);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/products");
-
-        const filtered = response.data.filter((item) => item.brand == category);
-
-        category === "All" ? setData(response.data) : setData(filtered);
+        if (category === "All") {
+          dispatch(fetchProducts());
+        } else {
+          const response = await api.get(`api/Product/category/${category}`);
+          setData(response?.data?.data);
+        }
       } catch (error) {
+        console.log(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message);
+        navigate("/");
         setError(error.message || "error in fetching products");
       } finally {
         setLoading(false);
@@ -46,7 +58,7 @@ const Products = () => {
                   <div className="card__skeleton card__title"></div>
                 </div>
               ))
-            : data.map((product) => (
+            : products?.data?.map((product) => (
                 <ProductCard key={product.id} item={product} />
               ))}
         </div>

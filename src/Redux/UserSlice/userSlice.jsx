@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../../api/api";
 
 export const fetchUser = createAsyncThunk(
   "user/fetchUser",
-  async (userId, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:5000/users/${userId}`);
-      return response.data;
+      const response = await api.get(`api/User/get-user`);
+      console.log(response);
+      return response?.data?.data;
     } catch (error) {
       toast.error("Error fetching user data");
       return rejectWithValue(error.message);
@@ -28,15 +30,20 @@ const userSlice = createSlice({
     logout: (state) => {
       console.log(state, "state from logout");
 
+      console.log("logout before");
       state.login = false;
-      localStorage.removeItem("id");
-      localStorage.removeItem("name");
+      console.log("logout after");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.userDetail = action.payload;
       state.login = true;
+    });
+    builder.addCase(fetchUser.rejected, (state) => {
+      state.login = false;
     });
   },
 });

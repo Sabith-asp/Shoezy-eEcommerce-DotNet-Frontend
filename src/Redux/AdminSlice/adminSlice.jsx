@@ -6,7 +6,7 @@ export const fetchProducts = createAsyncThunk(
   "admin/fetchProducts",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get("http://localhost:5000/products");
+      const response = await api.get("http://localhost:5000/products");
       return response.data;
     } catch (error) {
       console.error("Fetching products failed", error);

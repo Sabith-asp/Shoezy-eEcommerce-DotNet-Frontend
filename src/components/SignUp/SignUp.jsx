@@ -5,12 +5,15 @@ import * as Yup from "yup";
 import axios from "axios";
 import { DataContext } from "../../context/Provider";
 import toast, { Toaster } from "react-hot-toast";
+import api from "../../api/api";
 
 const SignUp = () => {
   const { toggleAuth, setToggleAuth } = useContext(DataContext);
   const initialSignUpValues = {
     name: "",
     email: "",
+    phoneno: "",
+    username: "",
     password: "",
   };
 
@@ -21,6 +24,19 @@ const SignUp = () => {
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
+    phoneno: Yup.string()
+      .min(10, "Phone number must be at least 10 numbers")
+      .max(10, "Phone number must be maximum 10 numbers")
+      .required("Phone number is required"),
+    username: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9_]+$/,
+        "Username can only contain letters, numbers, and underscores"
+      )
+      .min(3, "Username must be at least 3 characters")
+      .max(15, "Username cannot be more than 15 characters")
+      .required("Username is required"),
+
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
@@ -28,32 +44,22 @@ const SignUp = () => {
 
   const onSubmit = async (values, { resetForm }) => {
     console.log("signup started");
-
-    const existingUser = await axios.get("http://localhost:5000/users", {
-      params: { email: values.email },
-    });
-
-    if (existingUser.data.length > 0) {
-      toast.error("Email id is already exist. Login Now");
-      resetForm();
-      return;
-    }
-    const cart = [],
-      order = [],
-      status = true;
     console.log(values);
     const updateUser = async (values) => {
-      const users = await axios.post("http://localhost:5000/users", {
-        ...values,
-        cart,
-        order,
-        status,
-      });
+      try {
+        const response = await api.post(`/api/users/signup`, values);
+        console.log(response);
+        toast.success(response?.data?.message);
+      } catch (error) {
+        if (error.response) {
+          console.error("Error response:", error.response);
+          toast.error(error.response.data.message || "Something went wrong!");
+        }
+      }
     };
     updateUser(values);
     setToggleAuth(!toggleAuth);
-    // setIsUserLogin(!isUserLogin);
-    toast.success("Sign Up Success Login Now!");
+
     resetForm();
   };
 
@@ -84,6 +90,27 @@ const SignUp = () => {
               id="email"
             />
             <ErrorMessage name="email" component="div" className="error" />
+          </div>
+          <div className="d-flex flex-column text-black">
+            <label htmlFor="phone">Phone:</label>
+            <Field
+              className="login-input rounded-3 p-2"
+              type="text"
+              name="phoneno"
+              id="phone"
+            />
+            <ErrorMessage name="phoneno" component="div" className="error" />
+          </div>
+
+          <div className="d-flex flex-column text-black">
+            <label htmlFor="username">Username:</label>
+            <Field
+              className="login-input rounded-3 p-2"
+              type="text"
+              name="username"
+              id="username"
+            />
+            <ErrorMessage name="username" component="div" className="error" />
           </div>
 
           <div className="d-flex flex-column text-black">
