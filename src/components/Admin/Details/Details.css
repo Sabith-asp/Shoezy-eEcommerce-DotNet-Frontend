@@ -1,12 +1,57 @@
-.statics {
-  box-shadow: 3px 3px 5px gray;
+body {
+  background: #0f0f0f;
   color: white;
-  transition: 0.3s ease-in-out;
+  font-family: "Poppins", sans-serif;
 }
-.statics:hover {
-  box-shadow: 3px 3px 20px rgb(79, 79, 79);
+
+.premium-title {
+  font-size: 36px;
+  background: linear-gradient(to right, #ffd700, #ff5733);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
+.premium-box {
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  transition: all 0.4s ease-in-out;
+}
+
+.premium-box:hover::before {
+  transform: rotate(180deg);
+}
+
+.premium-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 25px rgba(255, 215, 0, 0.6);
+}
+
+.neon-text {
+  font-size: 40px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
+    0 0 15px rgba(255, 255, 255, 0.4);
+}
+
 .category-chart {
   height: 300px;
-  width: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }

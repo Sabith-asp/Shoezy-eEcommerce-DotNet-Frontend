@@ -18,6 +18,9 @@ import ScrollToTop from "./components/scrollToTop/scrollToTop";
 import Orders from "./components/Admin/Orders/Orders";
 import { Provider } from "react-redux";
 import { store } from "./Redux/Store";
+import Address from "./components/Address/Address";
+import Wishlist from "./pages/Wishlist/Wishlist";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const Routers = () => {
   return (
@@ -27,13 +30,28 @@ const Routers = () => {
           <BrowserRouter>
             <ScrollToTop />
             <Routes>
-              <Route path="/admin" element={<AdminLayout />}>
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute
+                    element={<AdminLayout />}
+                    allowedRoles={["admin"]}
+                  />
+                }
+              >
                 <Route index element={<Dashboard />} />
                 <Route path="products" element={<AdminProducts />} />
                 <Route path="users" element={<Users />} />
                 <Route path="block" element={<Block />} />
                 <Route path="orders" element={<Orders />} />
               </Route>
+              {/* <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="products" element={<AdminProducts />} />
+                <Route path="users" element={<Users />} />
+                <Route path="block" element={<Block />} />
+                <Route path="orders" element={<Orders />} />
+              </Route> */}
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="/:category" element={<Products />} />
@@ -43,6 +61,8 @@ const Routers = () => {
                 </Route>
                 <Route path="/order-history" element={<OrderHistory />} />
                 <Route path="cart" element={<Cart />} />
+                <Route path="wishlist" element={<Wishlist />} />
+                <Route path="/address" element={<Address />} />
               </Route>
             </Routes>
           </BrowserRouter>

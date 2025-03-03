@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../Redux/CartSlice/CartSlice";
 import { fetchOrders } from "../../Redux/OrderSlice/orderSlice";
+import { fetchUserAddress } from "../../Redux/UserSlice/userSlice";
 
 const Cart = () => {
   const { cart, loading, error, user } = useSelector((state) => state.cart);
@@ -39,6 +40,12 @@ const Cart = () => {
   };
   const openModal = () => {
     setShowModal(true);
+  };
+
+  const moveToAdress = () => {
+    console.log("function running");
+    dispatch(fetchUserAddress());
+    navigate("/address");
   };
 
   const validationSchema = Yup.object({
@@ -121,7 +128,7 @@ const Cart = () => {
     <div className="cart container-md">
       <div className="row">
         <div className="left3 pt-0 p-2 col-12 col-sm-7">
-          {!cart || cart?.cartitems?.length == 0 ? (
+          {!cart || cart.length == 0 ? (
             <div>
               <h3 className="fw-bold">No items in cart</h3>
             </div>
@@ -140,19 +147,19 @@ const Cart = () => {
             <h4>Cart Summary</h4>
             <p>Total Price : </p>
             <h1 className="fw-bold">₹{cart?.totalPrice || 0}</h1>
-            <Link to="/cart">
-              <button
-                className={`checkout-btn w-100 border-0 text-white rounded-2 py-2`}
-                disabled={cart ? true : false}
-                onClick={openModal}
-              >
-                Place Order
-              </button>
-            </Link>
+            {/* <Link to="/cart"> */}
+            <button
+              className={`checkout-btn w-100 border-0 text-white rounded-2 py-2`}
+              disabled={cart?.totalItem > 0 ? false : true}
+              onClick={moveToAdress}
+            >
+              Proceed
+            </button>
+            {/* </Link> */}
           </div>
         </div>
       </div>
-      {showModal && (
+      {/* {showModal && (
         <div className="modal-overlay">
           <div className="modal-content m-2 p-4 bg-white rounded-4 shadow">
             <h4 className="mb-3">Place Order</h4>
@@ -170,9 +177,9 @@ const Cart = () => {
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
-                <Form>
-                  {/* Customer Details */}
-                  <h5>Customer Details</h5>
+                <Form> */}
+      {/* Customer Details */}
+      {/* <h5>Customer Details</h5>
                   <div className="position-relative mt-3">
                     <label className="form-label  position-absolute bg-white">
                       Full Name:
@@ -219,10 +226,10 @@ const Cart = () => {
                       component="div"
                       className="error"
                     />
-                  </div>
+                  </div> */}
 
-                  {/* Delivery Information */}
-                  <h5 className="mt-3">Delivery Information</h5>
+      {/* Delivery Information */}
+      {/* <h5 className="mt-3">Delivery Information</h5>
                   <div className="position-relative mt-3">
                     <label className="form-label  position-absolute bg-white">
                       Address:
@@ -353,7 +360,7 @@ const Cart = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

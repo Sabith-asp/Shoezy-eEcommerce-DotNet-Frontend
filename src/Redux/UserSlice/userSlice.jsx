@@ -17,11 +17,40 @@ export const fetchUser = createAsyncThunk(
   }
 );
 
+export const fetchUserAddress = createAsyncThunk(
+  "user/fetchUserAddress",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/api/Address/get-all`);
+      console.log(response);
+      return response?.data?.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addAddress = createAsyncThunk(
+  "user/addAddress",
+  async (values, { rejectWithValue }) => {
+    try {
+      const response = await api.post(`/api/Address/add-address`, values);
+      console.log(response);
+      toast.success(response?.data?.message);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Error fetching user data");
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
     login: false,
     userDetail: {},
+    address: [],
   },
   reducers: {
     login: (state) => {
@@ -35,6 +64,7 @@ const userSlice = createSlice({
       console.log("logout after");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      localStorage.removeItem("role");
     },
   },
   extraReducers: (builder) => {
@@ -44,6 +74,9 @@ const userSlice = createSlice({
     });
     builder.addCase(fetchUser.rejected, (state) => {
       state.login = false;
+    });
+    builder.addCase(fetchUserAddress.fulfilled, (state, action) => {
+      state.address = action.payload;
     });
   },
 });

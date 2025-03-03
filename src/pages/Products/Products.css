@@ -4,7 +4,7 @@
 }
 
 .card {
-  width: 18rem;
+  /* width: 18rem; */
   padding: 1rem;
   text-align: center;
   border-radius: 0.8rem;
@@ -30,7 +30,7 @@
 }
 
 .card__description {
-  height: 150px;
+  height: 120px;
 }
 
 @keyframes shimmer {

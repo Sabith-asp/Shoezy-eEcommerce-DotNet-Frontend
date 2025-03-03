@@ -9,7 +9,10 @@ import { FaUserSlash, FaCircleUser } from "react-icons/fa6";
 import { MdHome } from "react-icons/md";
 import { BiSolidError, BiSolidPurchaseTag } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { fetchProducts } from "../../../Redux/AdminSlice/adminSlice";
+import {
+  fetchProducts,
+  fetchUsers,
+} from "../../../Redux/AdminSlice/adminSlice";
 
 const AdminLayout = () => {
   const navigate = useNavigate();
@@ -18,24 +21,30 @@ const AdminLayout = () => {
   const [broken, setBroken] = useState(
     window.matchMedia("(max-width: 800px)").matches
   );
-  const adminId = localStorage.getItem("adminId");
+  const role = localStorage.getItem("role");
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (adminId) {
+    if (role == "admin") {
       setIsAdminLogin(true);
+      dispatch(fetchProducts);
+      dispatch(fetchUsers());
     }
-  }, [adminId]);
+  }, [role]);
 
-  if (!adminId)
-    return (
-      <div className=" vh-100 vw-100 d-flex flex-column align-items-center justify-content-center">
-        <BiSolidError className="text-warning" style={{ fontSize: "130px" }} />
-        <h1>Oops!</h1>
-        <h4 className="text-danger">No access to admin</h4>
-      </div>
-    );
+  //   if (!adminId)
+  //     return (
+  //       <div className=" vh-100 vw-100 d-flex flex-column align-items-center justify-content-center">
+  //         <BiSolidError className="text-warning" style={{ fontSize: "130px" }} />
+  //         <h1>Oops!</h1>
+  //         <h4 className="text-danger">No access to admin</h4>
+  //       </div>
+  //     );
 
   const adminLogout = () => {
-    localStorage.removeItem("adminId");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("role");
+
     navigate("/");
   };
   return (
@@ -80,10 +89,10 @@ const AdminLayout = () => {
             <FaCircleUser className="fs-3" />
             <span className="fw-medium ms-1">Users</span>
           </MenuItem>
-          <MenuItem component={<Link to="/admin/block" />}>
+          {/* <MenuItem component={<Link to="/admin/block" />}>
             <FaUserSlash className="fs-3" />
             <span className="fw-medium ms-1 ">Block</span>
-          </MenuItem>
+          </MenuItem> */}
         </Menu>
       </Sidebar>
       <main

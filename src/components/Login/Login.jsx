@@ -43,7 +43,13 @@ const Login = () => {
 
       localStorage.setItem("accessToken", data?.data?.accessToken);
       localStorage.setItem("refreshToken", data?.data?.refreshToken);
-      toast.success("User Login successful");
+      localStorage.setItem("role", data?.data?.role);
+      if (data?.data?.role === "admin") {
+        toast.success("Admin login successful");
+        navigate("/admin");
+        return;
+      }
+      toast.success("User login successful");
       setTimeout(() => {
         resetForm();
         navigate("/");

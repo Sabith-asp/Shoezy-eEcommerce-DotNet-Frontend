@@ -1,15 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../../api/api";
 
 export const fetchProducts = createAsyncThunk(
   "admin/fetchProducts",
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("http://localhost:5000/products");
-      return response.data;
+      const response = await api.get("/api/Product/get-all-admin");
+      return response?.data?.data;
     } catch (error) {
-      console.error("Fetching products failed", error);
+      console.log("Fetching products failed", error?.response?.data?.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -19,10 +20,23 @@ export const fetchUsers = createAsyncThunk(
   "admin/fetchUsers",
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get("http://localhost:5000/users");
-      return data;
+      const response = await api.get("/api/User/get-all");
+      return response?.data?.data;
     } catch (error) {
-      console.error("Fetching users failed", error);
+      toast.error("Fetching users failed" || error?.response.data?.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchCategory = createAsyncThunk(
+  "admin/fetchCategory",
+  async (_, thunkAPI) => {
+    try {
+      const response = await api.get("/api/Product/get-category");
+      return response?.data?.data;
+    } catch (error) {
+      toast.error("Fetching users failed" || error?.response.data?.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -30,16 +44,17 @@ export const fetchUsers = createAsyncThunk(
 
 export const changeUserStatus = createAsyncThunk(
   "admin/changeUserStatus",
-  async ({ id, status = true }, thunkAPI) => {
+  async (userid, thunkAPI) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/users/${id}`, {
-        status: !status,
-      });
-      toast.success(`User with ID:${id} status changed`);
-      return { id, newStatus: !status };
+      const response = await api.put(`/api/User/block-or-unblock/${userid}`);
+      toast.success(response?.data?.message);
+      thunkAPI.dispatch(fetchUsers());
     } catch (error) {
-      console.error("Error in changing user status", error);
-      toast.error("Error in changing user status");
+      console.log(error);
+
+      toast.error(
+        "Error in changing user status" || error?.response?.data?.message
+      );
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -49,9 +64,10 @@ export const editProduct = createAsyncThunk(
   "admin/editProduct",
   async ({ id, values }, thunkAPI) => {
     try {
-      await axios.put(`http://localhost:5000/products/${id}`, values);
-      toast.success("Editing Successful");
-      return { id, values };
+      const response = await api.put(`/api/Product/update/${id}`, values);
+      toast.success(response?.data?.message);
+      thunkAPI.dispatch(fetchProducts());
+      return;
     } catch (error) {
       console.error("Error in editing product", error);
       toast.error("Error in editing product");
@@ -62,17 +78,15 @@ export const editProduct = createAsyncThunk(
 
 export const addProduct = createAsyncThunk(
   "admin/addProduct",
-  async (product, thunkAPI) => {
+  async (formdata, thunkAPI) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/products",
-        product
-      );
-      toast.success("Product added");
-      return response.data;
+      const response = await api.post(`/api/Product/add-product`, formdata);
+      toast.success(response?.data?.message);
+      thunkAPI.dispatch(fetchProducts());
+      return;
     } catch (error) {
       console.error("Error in adding product", error);
-      toast.error("Error in adding product");
+      toast.error(error?.response?.data?.message || "Error in adding product");
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -82,12 +96,12 @@ export const deleteProduct = createAsyncThunk(
   "admin/deleteProduct",
   async (id, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:5000/products/${id}`);
-      toast.success("Product deleted");
-      return id;
+      const response = await api.delete(`/api/Product/delete/${id}`);
+      toast.success(response?.data?.message);
+      thunkAPI.dispatch(fetchProducts());
     } catch (error) {
       console.error("Error in deleting product", error);
-      toast.error("Error in deleting product");
+      toast.error(error?.response?.data?.message, "Error in deleting product");
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -116,9 +130,10 @@ const adminSlice = createSlice({
     users: [],
     blockedUsers: [],
     products: [],
+    categories: [],
     isEditModalOpen: false,
     isAddModalOpen: false,
-    isUserCartOpen: false,
+    // isUserCartOpen: false,
     isUserOrderOpen: false,
     loading: false,
     error: null,
@@ -130,9 +145,9 @@ const adminSlice = createSlice({
     setIsAddModalOpen: (state, action) => {
       state.isAddModalOpen = action.payload;
     },
-    setIsUserCartOpen: (state, action) => {
-      state.isUserCartOpen = action.payload;
-    },
+    // setIsUserCartOpen: (state, action) => {
+    //   state.isUserCartOpen = action.payload;
+    // },
     setIsUserOrderOpen: (state, action) => {
       state.isUserOrderOpen = action.payload;
     },
@@ -155,53 +170,16 @@ const adminSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+    builder.addCase(fetchCategory.fulfilled, (state, action) => {
+      state.categories = action.payload;
+    });
     builder
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.users = action.payload.filter((user) => user.status !== false);
-        state.blockedUsers = action.payload.filter(
-          (user) => user.status === false
-        );
+        state.users = action.payload;
+        state.loading = false;
       })
-      .addCase(changeUserStatus.fulfilled, (state, action) => {
-        const { id, newStatus } = action.payload;
-
-        // Update the user in the users list
-        state.users = state.users.map((user) =>
-          user.id === id ? { ...user, status: newStatus } : user
-        );
-
-        if (!newStatus) {
-          // Move user to blockedUsers if they are blocked
-          const blockedUser = state.users.find((user) => user.id === id);
-          state.blockedUsers.push(blockedUser);
-          state.users = state.users.filter((user) => user.id !== id);
-        } else {
-          // Move user to users list if they are unblocked
-          const unblockedUser = state.blockedUsers.find(
-            (user) => user.id === id
-          );
-          state.users.push(unblockedUser);
-          state.blockedUsers = state.blockedUsers.filter(
-            (user) => user.id !== id
-          );
-        }
-      })
-
-      .addCase(editProduct.fulfilled, (state, action) => {
-        const { id, values } = action.payload;
-        state.products = state.products.map((product) =>
-          product.id === id ? { ...product, ...values } : product
-        );
-      })
-
-      .addCase(addProduct.fulfilled, (state, action) => {
-        state.products.push(action.payload);
-      })
-
-      .addCase(deleteProduct.fulfilled, (state, action) => {
-        state.products = state.products.filter(
-          (product) => product.id !== action.payload
-        );
+      .addCase(fetchUsers.pending, (state) => {
+        state.loading = true;
       });
   },
 });

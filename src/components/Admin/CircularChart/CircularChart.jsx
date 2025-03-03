@@ -13,16 +13,16 @@ const CircularChart = () => {
   const shoeCategoryCount = (category) =>
     products.filter((product) => product.category === category).length;
 
-  const casual = shoeCategoryCount("casual");
+  const boots = shoeCategoryCount("Boots");
   const walking = shoeCategoryCount("walking");
   const running = shoeCategoryCount("running");
   const hiking = shoeCategoryCount("hiking");
   const skate = shoeCategoryCount("skate");
-  const sports = shoeCategoryCount("sports");
+  const sports = shoeCategoryCount("Sports");
 
   const data = {
     labels: [
-      `Casual ${casual}`,
+      `Boots ${boots}`,
       `Walking ${walking}`,
       `Running ${running}`,
       `Hiking ${hiking}`,
@@ -32,7 +32,7 @@ const CircularChart = () => {
     datasets: [
       {
         label: "Shoe Categories",
-        data: [casual, walking, running, hiking, skate, sports],
+        data: [boots, walking, running, hiking, skate, sports],
         backgroundColor: [
           "#FF6384",
           "#36A2EB",

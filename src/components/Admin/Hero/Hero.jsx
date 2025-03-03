@@ -13,7 +13,7 @@ const Hero = () => {
             <Link to="/admin/products">
               <div className="hero-btn d-flex flex-column align-items-center p-2 rounded-4">
                 <AiFillProduct style={{ fontSize: "40px" }} />
-                <h6>Products</h6>
+                <h6 className="mt-2">Products</h6>
               </div>
             </Link>
           </div>
@@ -21,7 +21,7 @@ const Hero = () => {
             <Link to="/admin/users">
               <div className="hero-btn d-flex flex-column align-items-center p-2 rounded-4">
                 <FaCircleUser style={{ fontSize: "40px" }} />
-                <h6>Users</h6>
+                <h6 className="mt-2">Users</h6>
               </div>
             </Link>
           </div>

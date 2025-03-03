@@ -1,12 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { logout } from "../UserSlice/userSlice";
+import api from "../../api/api";
 
 export const fetchOrders = createAsyncThunk(
   "orders/fetchOrders",
-  async (userId) => {
-    const response = await axios.get(`http://localhost:5000/users/${userId}`);
-    return response.data.order;
+  async (_, thunkAPI) => {
+    try {
+      const response = await api.get("/api/Order/get-orders");
+      return response?.data?.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
 

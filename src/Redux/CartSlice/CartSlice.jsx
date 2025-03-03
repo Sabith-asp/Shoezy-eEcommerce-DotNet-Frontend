@@ -19,13 +19,15 @@ export const fetchCart = createAsyncThunk(
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
-  async (productid, { rejectWithValue }) => {
+  async (productid, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.post(
         `/api/Cart/add-to-cart?productId=${productid}`
       );
       console.log(response);
+
       toast.success(response?.data?.message);
+      dispatch(fetchCart());
     } catch (error) {
       toast.error(
         error?.response?.data?.message || "Error adding product to cart"
@@ -37,11 +39,12 @@ export const addToCart = createAsyncThunk(
 
 export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
-  async (cartitemid, { rejectWithValue }) => {
+  async (cartitemid, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.delete(`/api/Cart/remove/${cartitemid}`);
       console.log(response);
       toast.success(response?.data?.message);
+      dispatch(fetchCart());
     } catch (error) {
       toast.error(
         error?.response?.data?.message || "Error removing product from cart"
@@ -49,45 +52,17 @@ export const removeFromCart = createAsyncThunk(
       return rejectWithValue(error.message);
     }
   }
-  //   async ({ userId, productId }, { getState, rejectWithValue }) => {
-  //     try {
-  //       const { cart } = getState().cart;
-  //       const newCart = cart.filter((item) => item.id !== productId);
-  //       await api.patch(`http://localhost:5000/users/${userId}`, {
-  //         cart: newCart,
-  //       });
-  //       return newCart;
-  //     } catch (error) {
-  //       toast.error("Error removing product from cart");
-  //       return rejectWithValue(error.message);
-  //     }
-  //   }
 );
 
 export const increaseQuantity = createAsyncThunk(
   "cart/increaseQuantity",
-  async ({ userId, productId }, { getState, rejectWithValue }) => {
+  async (cartItemId, { dispatch, rejectWithValue }) => {
     try {
-      const { cart } = getState().cart;
-      const product = cart.find((item) => item.id === productId);
-      const stockQty = (
-        await api.get(`http://localhost:5000/products/${productId}`)
-      ).data.quantity;
-
-      if (product.quantity + 1 > stockQty) {
-        toast.error("Quantity exceeds stock!");
-        return rejectWithValue("Exceeds stock");
-      }
-
-      const newCart = cart.map((item) =>
-        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      await api.patch(`http://localhost:5000/users/${userId}`, {
-        cart: newCart,
-      });
-      return newCart;
+      const response = await api.put(`/api/Cart/increase-qty/${cartItemId}`);
+      toast.success(response?.data?.message);
+      dispatch(fetchCart());
     } catch (error) {
-      toast.error("Error updating quantity");
+      toast.error(error?.response?.data?.message || "Error updating quantity");
       return rejectWithValue(error.message);
     }
   }
@@ -95,25 +70,13 @@ export const increaseQuantity = createAsyncThunk(
 
 export const decreaseQuantity = createAsyncThunk(
   "cart/decreaseQuantity",
-  async ({ userId, productId }, { getState, rejectWithValue }) => {
+  async (cartItemId, { dispatch, rejectWithValue }) => {
     try {
-      const { cart } = getState().cart;
-      const product = cart.find((item) => item.id === productId);
-
-      if (product.quantity <= 1) {
-        toast.error("Minimum quantity is 1!");
-        return rejectWithValue("Minimum quantity reached");
-      }
-
-      const newCart = cart.map((item) =>
-        item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
-      );
-      await api.patch(`http://localhost:5000/users/${userId}`, {
-        cart: newCart,
-      });
-      return newCart;
+      var response = await api.put(`/api/Cart/decrease-qty/${cartItemId}`);
+      toast.success(response?.data?.message);
+      dispatch(fetchCart());
     } catch (error) {
-      toast.error("Error updating quantity");
+      toast.error(error?.response?.data?.message || "Error updating quantity");
       return rejectWithValue(error.message);
     }
   }

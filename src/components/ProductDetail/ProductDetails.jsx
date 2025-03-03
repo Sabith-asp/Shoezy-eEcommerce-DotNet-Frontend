@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { addToCart } from "../../Redux/CartSlice/CartSlice";
 import api from "../../api/api";
+import { FaCartShopping } from "react-icons/fa6";
 
 const ProductDetails = () => {
   //   const { addToCart } = useContext(CartContext);
@@ -101,13 +102,24 @@ const ProductDetails = () => {
               {/* <Quantity qty={quantity} setQty={setQuantity} /> */}
             </div>
             <span>
-              <button
+              {/* <button
                 onClick={() => {
                   handleAddToCart(productDetail.id);
                 }}
                 className="fs-5 px-3 add-to-cart-btn mt-3 float-end float-md-start rounded"
               >
                 Add to Cart
+              </button> */}
+              <button
+                onClick={() => {
+                  handleAddToCart(productDetail.id);
+                }}
+                className="CartBtn"
+              >
+                <span className="IconContainer">
+                  <FaCartShopping />
+                </span>
+                <p className="text m-0">Add to Cart</p>
               </button>
             </span>
           </div>

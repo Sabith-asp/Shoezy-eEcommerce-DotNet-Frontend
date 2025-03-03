@@ -10,14 +10,18 @@ import { fetchCart } from "../../Redux/CartSlice/CartSlice";
 import { fetchUser, logout } from "../../Redux/UserSlice/userSlice";
 import { fetchProducts } from "../../Redux/ProductSlice/productSlice";
 import { fetchOrders } from "../../Redux/OrderSlice/orderSlice";
+import { FaHeart } from "react-icons/fa6";
+import { fetchWishlist } from "../../Redux/WishlistSlice/WishlistSlice";
 const Navbar = () => {
   //   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
   const { setCart, user } = useContext(CartContext);
   const { cart } = useSelector((state) => state.cart);
-  //   const [cartCount, setCartCount] = useState(0);
-  const [cartCount, setCartCount] = useState(0);
+  const { products } = useSelector((state) => state.wishlist);
+  const cartCount = cart?.totalItem;
+  const wishlistCount = products?.length;
   console.log("navbar rerendered");
   const accessToken = localStorage.getItem("accessToken");
+  const role = localStorage.getItem("role");
   const dispatch = useDispatch();
   const { login } = useSelector((state) => state.user);
 
@@ -26,19 +30,16 @@ const Navbar = () => {
   console.log(login);
 
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && role == "user") {
       console.log(accessToken);
 
       dispatch(fetchUser());
 
       dispatch(fetchCart());
-      //   dispatch(fetchProducts());
-      console.log("cart item decreased");
+      dispatch(fetchOrders());
+      dispatch(fetchWishlist());
     }
   }, [dispatch, login]);
-  useEffect(() => {
-    setCartCount(cart?.cartitems?.length);
-  }, [cart]);
 
   useEffect(() => {
     console.log("Login state changed: ", login);
@@ -61,6 +62,17 @@ const Navbar = () => {
             </button>
           )}
 
+          <button
+            className=" position-relative navbar-toggler ps-3 pe-0 py-0"
+            type="button"
+          >
+            <Link to="/wishlist">
+              <FaHeart />
+            </Link>
+            <span className="position-absolute wishlist-count">
+              {wishlistCount || 0}
+            </span>
+          </button>
           <button
             className=" position-relative navbar-toggler px-3 py-0"
             type="button"
@@ -158,6 +170,16 @@ const Navbar = () => {
                 <span className="ms-2">{userDetail.name}</span>
               </button>
             )}
+
+            <button className="border-0 position-relative d-none d-md-flex float-end ms-3 me-0 mb-3 mb-md-0 m-0 bg-transparent">
+              <Link to="/wishlist">
+                <FaHeart className="fs-3" />
+                <span className="position-absolute cart-count-md">
+                  {wishlistCount || 0}
+                </span>
+              </Link>
+            </button>
+
             <button className="border-0 position-relative d-none d-md-flex float-end mx-3 mb-3 mb-md-0 m-0 bg-transparent">
               <Link to="/cart">
                 <GiShoppingBag className="fs-3" />

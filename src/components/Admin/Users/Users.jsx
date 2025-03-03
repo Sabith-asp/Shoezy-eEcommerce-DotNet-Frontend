@@ -8,17 +8,20 @@ import { BsBagXFill } from "react-icons/bs";
 import AdminOrderCard from "../AdminOrderCard/AdminOrderCard.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  changeUserStatus,
   fetchUsers,
   setIsUserCartOpen,
   setIsUserOrderOpen,
 } from "../../../Redux/AdminSlice/adminSlice.jsx";
+import api from "../../../api/api.jsx";
+import Loader from "../../Loader/Loader.jsx";
 
 const Users = () => {
   const dispatch = useDispatch();
   const [selectedUser, setSelectedUser] = useState(null);
   const [userCart, setUserCart] = useState([]);
   const [userOrders, setUserOrders] = useState([]);
-  const { isUserCartOpen, isUserOrderOpen, users } = useSelector(
+  const { isUserCartOpen, isUserOrderOpen, users, loading } = useSelector(
     (state) => state.admin
   );
   //   const {
@@ -31,38 +34,45 @@ const Users = () => {
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+  console.log(users);
 
-  const openUserCart = async (id) => {
-    try {
-      const { data } = await axios.get(`http://localhost:5000/users/${id}`);
-      setUserCart(data.cart);
-      setSelectedUser(id);
-      dispatch(setIsUserCartOpen(true));
-    } catch (error) {
-      console.log("error in fetching user orders", error);
-    }
-  };
+  //   const openUserCart = async (id) => {
+  //     try {
+  //       const { data } = await axios.get(`http://localhost:5000/users/${id}`);
+  //       setUserCart(data.cart);
+  //       setSelectedUser(id);
+  //       dispatch(setIsUserCartOpen(true));
+  //     } catch (error) {
+  //       console.log("error in fetching user orders", error);
+  //     }
+  //   };
   const openUserOrder = async (id) => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/users/${id}`);
-      setUserOrders(data.order);
+      const { data } = await api.get(`/api/Order/get-orders/${id}`);
+      setUserOrders(data?.data);
+      console.log(data?.data);
+
       setSelectedUser(id);
       dispatch(setIsUserOrderOpen(true));
     } catch (error) {
       console.log("error in fetching user orders", error);
     }
   };
-  const closeUserCart = () => {
-    dispatch(setIsUserCartOpen(false));
-    setSelectedUser(null);
-    setUserCart([]);
-  };
+
+  console.log(userOrders);
+
+  //   const closeUserCart = () => {
+  //     dispatch(setIsUserCartOpen(false));
+  //     setSelectedUser(null);
+  //     setUserCart([]);
+  //   };
   const closeUserOrder = () => {
     dispatch(setIsUserOrderOpen(false));
     setSelectedUser(null);
     setUserOrders([]);
   };
 
+  if (loading) return <Loader />;
   return (
     <div className="container-fluid p-0 mt-2">
       <div className="product-header   p-2 rounded-4">
@@ -76,9 +86,10 @@ const Users = () => {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Password</th>
-                <th>Cart</th>
+                {/* <th>Password</th>
+                <th>Cart</th> */}
                 <th>Orders</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +98,7 @@ const Users = () => {
                   <td>{user.id}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>{user.password}</td>
+                  {/* <td>{user.password}</td>
                   <td>
                     <button
                       onClick={() => {
@@ -97,7 +108,7 @@ const Users = () => {
                     >
                       View Cart
                     </button>
-                  </td>
+                  </td> */}
                   <td>
                     <button
                       onClick={() => {
@@ -108,13 +119,26 @@ const Users = () => {
                       View Orders
                     </button>
                   </td>
+                  <td>
+                    <button
+                      className={`rounded-3 border-0 p-1 pt-2 ${
+                        user.isBlocked ? "bg-danger text-white" : "bg-warning"
+                      } `}
+                      style={{ width: "70px" }}
+                      onClick={() => {
+                        dispatch(changeUserStatus(user.id));
+                      }}
+                    >
+                      {user.isBlocked ? "Unblock" : "Block"}
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-      <Modal isOpen={isUserCartOpen} onClose={closeUserCart}>
+      {/* <Modal isOpen={isUserCartOpen} onClose={closeUserCart}>
         <h4>Cart</h4>
         <div className="cart-items">
           {userCart.length > 0 ? (
@@ -128,13 +152,13 @@ const Users = () => {
             </div>
           )}
         </div>
-      </Modal>
+      </Modal> */}
       <Modal isOpen={isUserOrderOpen} onClose={closeUserOrder}>
         <h4>Orders</h4>
         <div className="user-orders">
-          {userOrders.length > 0 ? (
-            userOrders.map((order) => (
-              <AdminOrderCard key={order.id} order={order} />
+          {userOrders?.length > 0 ? (
+            userOrders?.map((order) => (
+              <AdminOrderCard key={order.orderId} order={order} />
             ))
           ) : (
             <div className="w-100 h-100 d-flex justify-content-center align-items-center">

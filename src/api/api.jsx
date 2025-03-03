@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 
 const api = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}`,
+  withCredentials: true,
 });
 
 const refreshAccessToken = async () => {
@@ -24,6 +25,7 @@ const refreshAccessToken = async () => {
     toast.error("Session expired. Please log in again.");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("role");
     window.location.href = "/auth";
     throw error;
   }

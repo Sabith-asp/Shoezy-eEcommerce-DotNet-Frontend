@@ -23,6 +23,18 @@
   height: 25px;
 }
 
+.heart-icon {
+  color: white;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.whishlist {
+  cursor: pointer;
+}
+.whishlist:active .heart-icon {
+  transform: scale(1.2);
+  color: red;
+}
+
 @media (max-width: 768px) {
   .product-image {
     height: 100px;

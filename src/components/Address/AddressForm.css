@@ -1,0 +1,23 @@
+.address-form {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.address-form::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 0px;
+}
+
+.address-form::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
+}
+.edit-input > textarea::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 0px;
+}
+
+.edit-input > textarea::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
+}

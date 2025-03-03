@@ -85,14 +85,7 @@ const Block = () => {
                     <td>{user.email}</td>
                     <td>
                       <button
-                        onClick={() =>
-                          dispatch(
-                            changeUserStatus({
-                              id: user.id,
-                              newStatus: user.status,
-                            })
-                          )
-                        }
+                        onClick={() => dispatch(changeUserStatus(user.id))}
                         className="rounded-3 border-0 px-3 p-1 pt-2 bg-warning"
                       >
                         Block

@@ -15,12 +15,12 @@ const CartItem = ({ product }) => {
 
   const userId = localStorage.getItem("id");
 
-  const handleIncreaseQuantity = (productId) => {
-    dispatch(increaseQuantity({ userId, productId }));
+  const handleIncreaseQuantity = (cartItemId) => {
+    dispatch(increaseQuantity(cartItemId));
   };
 
-  const handleDecreaseQuantity = (productId) => {
-    dispatch(decreaseQuantity({ userId, productId }));
+  const handleDecreaseQuantity = (cartItemId) => {
+    dispatch(decreaseQuantity(cartItemId));
   };
 
   const handleRemoveFromCart = (cartItemId) => {
@@ -44,7 +44,7 @@ const CartItem = ({ product }) => {
             <div>
               <button
                 onClick={() => {
-                  handleDecreaseQuantity(product.id);
+                  handleDecreaseQuantity(product.cartItemId);
 
                   console.log("clicked");
                 }}
@@ -55,7 +55,7 @@ const CartItem = ({ product }) => {
               <span>{product.quantity}</span>
               <button
                 onClick={() => {
-                  handleIncreaseQuantity(product.id);
+                  handleIncreaseQuantity(product.cartItemId);
                 }}
                 className="border-0 bg-transparent fs-3"
               >

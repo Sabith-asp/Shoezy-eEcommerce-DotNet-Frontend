@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { fetchProducts } from "../../Redux/ProductSlice/productSlice";
 
 const Products = () => {
-  //   const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { category } = useParams();
@@ -25,13 +25,15 @@ const Products = () => {
         if (category === "All") {
           dispatch(fetchProducts());
         } else {
-          const response = await api.get(`api/Product/category/${category}`);
+          const response = await api.get(`/api/Product/brand/${category}`);
+          console.log(response);
+
           setData(response?.data?.data);
         }
       } catch (error) {
-        console.log(error?.response?.data?.message);
+        console.log(error);
         toast.error(error?.response?.data?.message);
-        navigate("/");
+        navigate("/All");
         setError(error.message || "error in fetching products");
       } finally {
         setLoading(false);
@@ -51,14 +53,19 @@ const Products = () => {
         <div className="row ">
           {loading
             ? Array.from({ length: 10 }).map((_, index) => (
-                <div key={index} className="card">
-                  <div className="card__skeleton card__description"> </div>
-                  <div className="card__skeleton card__title"></div>
-                  <div className="card__skeleton card__title"></div>
-                  <div className="card__skeleton card__title"></div>
+                <div key={index} className="col-6 col-sm-4 col-md-3 p-1 p-md-2">
+                  <div className="card w-100 p-2 rounded-4">
+                    <div className="card__skeleton card__description"></div>
+                    <div className="card__skeleton card__title"></div>
+                    <div className="card__skeleton card__title"></div>
+                  </div>
                 </div>
               ))
-            : products?.data?.map((product) => (
+            : category == "All"
+            ? products?.data?.map((product) => (
+                <ProductCard key={product.id} item={product} />
+              ))
+            : data?.map((product) => (
                 <ProductCard key={product.id} item={product} />
               ))}
         </div>

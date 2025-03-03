@@ -7,10 +7,14 @@ import Modal from "../Modal/Modal";
 import EditForm from "../ProductForm/ProductForm";
 import {
   deleteProduct,
+  fetchCategory,
+  fetchProducts,
   setIsAddModalOpen,
   setIsEditModalOpen,
 } from "../../../Redux/AdminSlice/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
+import api from "../../../api/api";
+import toast from "react-hot-toast";
 
 const AdminProducts = () => {
   //   const {
@@ -26,7 +30,7 @@ const AdminProducts = () => {
   const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
-  const { products, isEditModalOpen, isAddModalOpen } = useSelector(
+  const { products, isEditModalOpen, isAddModalOpen, categories } = useSelector(
     (state) => state.admin
   );
 
@@ -47,22 +51,31 @@ const AdminProducts = () => {
     dispatch(setIsAddModalOpen(false));
   };
 
-  console.log(category);
+  console.log(category, "current category");
+  console.log("categories", categories);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/products");
+        if (category == "All") {
+          await dispatch(fetchProducts());
+          setLoading(false);
+        } else {
+          const response = await api.get(`/api/Product/category/${category}`);
+          console.log(response?.data?.data);
 
-        category !== "All"
-          ? setProductData(
-              data.filter((product) => product.category === category)
-            )
-          : setProductData(data);
-        setLoading(false);
-      } catch (error) {}
+          setProductData(response?.data?.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+        setCategory("All");
+        console.log(error?.response?.data?.message);
+      }
     };
     fetchProduct();
-  }, [category, products]);
+    dispatch(fetchCategory());
+  }, [category]);
   if (loading) return <Loader />;
 
   return (
@@ -96,12 +109,11 @@ const AdminProducts = () => {
                 }}
               >
                 <option value="All">All</option>
-                <option value="casual">Casual</option>
-                <option value="running">Running</option>
-                <option value="hiking">Hiking</option>
-                <option value="walking">Walking</option>
-                <option value="skate">Skate</option>
-                <option value="sports">Sports</option>
+                {categories?.map((category) => (
+                  <option style={{ width: "40px" }} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -127,42 +139,80 @@ const AdminProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {productData
-                .slice()
-                .reverse()
-                .map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.title}</td>
-                    <td>{item.brand}</td>
-                    <td>{item.price}</td>
-                    <td>{item.discount}%</td>
-                    <td>{item.model}</td>
-                    <td>{item.color}</td>
-                    <td>{item.category}</td>
-                    <td>{item.quantity}</td>
-                    <td>
-                      <img
-                        className="product-img rounded-4"
-                        src={item.image}
-                        alt=""
-                      />
-                    </td>
-                    <td className="d-flex flex-column justify-content-center align-items-center">
-                      <button
-                        onClick={() => openEditModal(item.id)}
-                        className="admin-btn edit rounded-3"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => dispatch(deleteProduct(item.id))}
-                        className="admin-btn delete rounded-3"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+              {}
+              {category === "All"
+                ? products
+                    ?.slice()
+                    .reverse()
+                    .map((item) => (
+                      <tr key={item?.id}>
+                        <td>{item?.title}</td>
+                        <td>{item?.brand}</td>
+                        <td>{item?.price}</td>
+                        <td>{item?.discount}%</td>
+                        <td>{item?.model}</td>
+                        <td>{item?.color}</td>
+                        <td>{item?.category}</td>
+                        <td>{item?.quantity}</td>
+                        <td>
+                          <img
+                            className="product-img rounded-4"
+                            src={item?.image}
+                            alt=""
+                          />
+                        </td>
+                        <td className="d-flex flex-column justify-content-center align-items-center">
+                          <button
+                            onClick={() => openEditModal(item.id)}
+                            className="admin-btn edit rounded-3"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => dispatch(deleteProduct(item.id))}
+                            className="admin-btn delete rounded-3"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                : productData
+                    ?.slice()
+                    .reverse()
+                    .map((item) => (
+                      <tr key={item?.id}>
+                        <td>{item?.title}</td>
+                        <td>{item?.brand}</td>
+                        <td>{item?.price}</td>
+                        <td>{item?.discount}%</td>
+                        <td>{item?.model}</td>
+                        <td>{item?.color}</td>
+                        <td>{item?.category}</td>
+                        <td>{item?.quantity}</td>
+                        <td>
+                          <img
+                            className="product-img rounded-4"
+                            src={item?.image}
+                            alt=""
+                          />
+                        </td>
+                        <td className="d-flex flex-column justify-content-center align-items-center">
+                          <button
+                            onClick={() => openEditModal(item.id)}
+                            className="admin-btn edit rounded-3"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => dispatch(deleteProduct(item.id))}
+                            className="admin-btn delete rounded-3"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
             </tbody>
           </table>
         </div>
