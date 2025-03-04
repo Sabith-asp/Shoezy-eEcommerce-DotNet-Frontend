@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { GiShoppingBag } from "react-icons/gi";
 import { DataContext } from "../../context/Provider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartProvider";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,7 @@ const Navbar = () => {
   const role = localStorage.getItem("role");
   const dispatch = useDispatch();
   const { login } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const { userDetail } = useSelector((state) => state.user);
   console.log(userDetail);
@@ -198,6 +199,7 @@ const Navbar = () => {
                 data-bs-dismiss="offcanvas"
                 onClick={() => {
                   dispatch(logout());
+                  navigate("/");
                   //   setIsUserLogin(false);
                 }}
                 className="authbutton border-1 float-end mx-0 mx-md-3 my-3 rounded-pill px-3 py-1"

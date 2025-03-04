@@ -15,6 +15,9 @@ import Razorbutton from "../Razorpay/Razorbutton";
 import { FaPlusSquare } from "react-icons/fa";
 import UserModal from "../UserModal/UserModal";
 import AddressForm from "./AddressForm";
+import { ImCross } from "react-icons/im";
+import api from "../../api/api";
+import toast from "react-hot-toast";
 
 const Address = () => {
   const [addressAdd, setAddressAdd] = useState(false);
@@ -37,6 +40,18 @@ const Address = () => {
     setAddressAdd(false);
   };
 
+  const removeAddress = async (addressId) => {
+    try {
+      const response = await api.delete(
+        `/api/Address/remove-address/${addressId}`
+      );
+      toast.success(response?.data?.message);
+      dispatch(fetchUserAddress());
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+    }
+  };
+
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
       <div className="col-12 address p-3 bg-secondary-subtle rounded-5 d-flex flex-column position-relative justify-content-center align-items-center">
@@ -56,11 +71,11 @@ const Address = () => {
         {address.length == 0 ? (
           <h5 className="text-center text-danger">Address not available</h5>
         ) : (
-          <div className=" row">
-            {address.map((address) => (
-              <div key={address.addressId} className="col-12 col-md-6 col-lg-3">
+          <div className=" row w-100">
+            {address?.map((address) => (
+              <div key={address.addressId} className="col-12 col-md-6 col-xl-3">
                 <div
-                  className={`  p-3 mb-3 rounded-5 ${
+                  className={`  p-3 mb-3 rounded-4 position-relative ${
                     selectedAddress === address.addressId
                       ? "bg-secondary text-white shadow"
                       : "bg-light shadow"
@@ -71,6 +86,16 @@ const Address = () => {
                     transition: "background 0.3s, box-shadow 0.3s",
                   }}
                 >
+                  <span className=" position-absolute top-0 end-0">
+                    <button
+                      onClick={() => {
+                        removeAddress(address.addressId);
+                      }}
+                      className="rounded border-0  py-1 bg-white mt-3 me-3"
+                    >
+                      <ImCross className="text" />
+                    </button>
+                  </span>
                   <div className="d-flex align-items-center">
                     <input
                       type="checkbox"

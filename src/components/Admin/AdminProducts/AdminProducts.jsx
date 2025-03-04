@@ -15,6 +15,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../api/api";
 import toast from "react-hot-toast";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { GoXCircleFill } from "react-icons/go";
 
 const AdminProducts = () => {
   //   const {
@@ -127,6 +129,7 @@ const AdminProducts = () => {
                     <th key={index}>{head.toUpperCase()}</th>
                   ))} */}
                 <th>Title</th>
+                <th>Deleted</th>
                 <th>Brand</th>
                 <th>Price</th>
                 <th>Discount</th>
@@ -147,6 +150,13 @@ const AdminProducts = () => {
                     .map((item) => (
                       <tr key={item?.id}>
                         <td>{item?.title}</td>
+                        <td className="">
+                          {item.isDeleted ? (
+                            <IoIosCheckmarkCircle className="text-danger fs-2" />
+                          ) : (
+                            <GoXCircleFill className="text-success fs-3" />
+                          )}
+                        </td>
                         <td>{item?.brand}</td>
                         <td>{item?.price}</td>
                         <td>{item?.discount}%</td>
@@ -168,12 +178,14 @@ const AdminProducts = () => {
                           >
                             Edit
                           </button>
-                          <button
-                            onClick={() => dispatch(deleteProduct(item.id))}
-                            className="admin-btn delete rounded-3"
-                          >
-                            Delete
-                          </button>
+                          {!item.isDeleted && (
+                            <button
+                              onClick={() => dispatch(deleteProduct(item.id))}
+                              className="admin-btn delete rounded-3"
+                            >
+                              Delete
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))
@@ -204,12 +216,14 @@ const AdminProducts = () => {
                           >
                             Edit
                           </button>
-                          <button
-                            onClick={() => dispatch(deleteProduct(item.id))}
-                            className="admin-btn delete rounded-3"
-                          >
-                            Delete
-                          </button>
+                          {!item.isDeleted && (
+                            <button
+                              onClick={() => dispatch(deleteProduct(item.id))}
+                              className="admin-btn delete rounded-3"
+                            >
+                              Delete
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))}

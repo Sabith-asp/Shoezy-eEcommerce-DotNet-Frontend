@@ -66,8 +66,9 @@ const Orders = () => {
                         <img
                           style={{
                             width: "100%",
-                            height: "70px",
+                            height: "80px",
                             backgroundColor: "white",
+                            objectFit: "cover",
                           }}
                           className="rounded-3"
                           src={item.image}
@@ -78,7 +79,7 @@ const Orders = () => {
                         <span
                           style={{ fontSize: "10px", whiteSpace: "nowrap" }}
                         >
-                          {item.title}
+                          {item.productName}
                         </span>
                         <span style={{ fontSize: "10px" }}>₹ {item.price}</span>
                         <span style={{ fontSize: "10px" }}>

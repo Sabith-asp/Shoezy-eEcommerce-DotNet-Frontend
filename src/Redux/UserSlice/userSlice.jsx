@@ -33,11 +33,12 @@ export const fetchUserAddress = createAsyncThunk(
 
 export const addAddress = createAsyncThunk(
   "user/addAddress",
-  async (values, { rejectWithValue }) => {
+  async (values, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.post(`/api/Address/add-address`, values);
       console.log(response);
       toast.success(response?.data?.message);
+      dispatch(fetchUserAddress());
     } catch (error) {
       toast.error(error?.response?.data?.message || "Error fetching user data");
       return rejectWithValue(error.message);

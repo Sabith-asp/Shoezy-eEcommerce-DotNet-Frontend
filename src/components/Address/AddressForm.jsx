@@ -3,9 +3,9 @@ import "./AddressForm.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { addAddress } from "../../Redux/UserSlice/userSlice";
+import { addAddress, fetchUserAddress } from "../../Redux/UserSlice/userSlice";
 
-const AddressForm = ({close}) => {
+const AddressForm = ({ close }) => {
   const dispatch = useDispatch();
 
   const validationSchema = Yup.object({

@@ -25,7 +25,7 @@ const OrderHistory = () => {
       <div className="row">
         {/* <div className="col-12 col-md-5"> */}
         <h2 className="fw-bold">Orders</h2>
-        {orders.length === 0 ? (
+        {orders?.length === 0 ? (
           <div>
             <h4 className="text-danger">No orders..</h4>
           </div>
@@ -34,7 +34,10 @@ const OrderHistory = () => {
             ?.slice()
             ?.reverse()
             .map((item) => (
-              <div key={item.orderId} className="col-4 ">
+              <div
+                key={item.orderId}
+                className="col-12 col-md-6 col-lg-4 col-xl-3"
+              >
                 <div className="bg-secondary-subtle rounded-4 p-2 mb-2">
                   <h6>Order ID: {item.orderId}</h6>
                   {item?.orderProducts?.map((product) => (

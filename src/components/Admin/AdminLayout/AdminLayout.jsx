@@ -74,25 +74,21 @@ const AdminLayout = () => {
         </div>
         <Menu>
           <MenuItem component={<Link to="/admin" />}>
-            <MdHome className="fs-2" />
+            <MdHome className="fs-4" />
             <span className="fw-medium ms-1">Home</span>
           </MenuItem>
           <MenuItem component={<Link to="/admin/orders" />}>
-            <BiSolidPurchaseTag className="fs-2" />
+            <BiSolidPurchaseTag className="fs-4" />
             <span className="fw-medium ms-1">Orders</span>
           </MenuItem>
           <MenuItem component={<Link to="/admin/products" />}>
-            <AiFillProduct className="fs-2" />
+            <AiFillProduct className="fs-4" />
             <span className="fw-medium ms-1">Products</span>
           </MenuItem>
           <MenuItem component={<Link to="/admin/users" />}>
-            <FaCircleUser className="fs-3" />
+            <FaCircleUser className="fs-4" />
             <span className="fw-medium ms-1">Users</span>
           </MenuItem>
-          {/* <MenuItem component={<Link to="/admin/block" />}>
-            <FaUserSlash className="fs-3" />
-            <span className="fw-medium ms-1 ">Block</span>
-          </MenuItem> */}
         </Menu>
       </Sidebar>
       <main

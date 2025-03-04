@@ -69,7 +69,7 @@ const CartItem = ({ product }) => {
             onClick={() => {
               handleRemoveFromCart(product.cartItemId);
             }}
-            className="rounded border-1 border-danger pb-1 bg-white"
+            className="rounded border-1 border-danger py-1 bg-white"
           >
             <ImCross className="text" />
           </button>

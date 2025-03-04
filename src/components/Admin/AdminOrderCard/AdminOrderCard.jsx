@@ -8,7 +8,7 @@ const AdminOrderCard = ({ order }) => {
         <p className="mb-0">Name: {order?.address?.name}</p>
         <p className="mb-0">Email: {order?.address?.email}</p>
         <p className="mb-0">Phone: {order?.address?.phone}</p>
-        <p className="mb-0">Address: {order?.address?.houseName}</p>
+        <p className="mb-0">House name: {order?.address?.houseName}</p>
         <p className="mb-0">City: {order?.address?.city}</p>
         <p className="mb-0">State: {order?.address?.state}</p>
         {/* <p className="mb-0">Payment: {order.paymentMode}</p> */}
@@ -34,13 +34,13 @@ const AdminOrderCard = ({ order }) => {
 
               <div className="text-white">
                 <p style={{ fontSize: "10px" }} className="mb-0">
-                  {item.title}
+                  {item.productName}
                 </p>
                 <p style={{ fontSize: "10px" }} className="mb-0">
                   ₹{item.price}
                 </p>
                 <p style={{ fontSize: "10px" }} className="mb-0">
-                  {item.qty}
+                  {item.quantity} Qty
                 </p>
               </div>
             </div>
