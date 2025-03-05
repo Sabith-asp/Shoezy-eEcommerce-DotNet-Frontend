@@ -64,7 +64,7 @@ const AdminProducts = () => {
           setLoading(false);
         } else {
           const response = await api.get(`/api/Product/category/${category}`);
-          console.log(response?.data?.data);
+          console.log(response?.data?.data, "current data");
 
           setProductData(response?.data?.data);
           setLoading(false);
@@ -152,9 +152,9 @@ const AdminProducts = () => {
                         <td>{item?.title}</td>
                         <td className="">
                           {item.isDeleted ? (
-                            <IoIosCheckmarkCircle className="text-danger fs-2" />
+                            <GoXCircleFill className="text-danger fs-2" />
                           ) : (
-                            <GoXCircleFill className="text-success fs-3" />
+                            <IoIosCheckmarkCircle className=" text-success fs-3" />
                           )}
                         </td>
                         <td>{item?.brand}</td>
@@ -195,6 +195,13 @@ const AdminProducts = () => {
                     .map((item) => (
                       <tr key={item?.id}>
                         <td>{item?.title}</td>
+                        <td className="">
+                          {item.isDeleted ? (
+                            <GoXCircleFill className="text-danger fs-2" />
+                          ) : (
+                            <IoIosCheckmarkCircle className=" text-success fs-3" />
+                          )}
+                        </td>
                         <td>{item?.brand}</td>
                         <td>{item?.price}</td>
                         <td>{item?.discount}%</td>

@@ -5,8 +5,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addCategories,
   addProduct,
   editProduct,
+  fetchCategory,
   setIsAddModalOpen,
   setIsEditModalOpen,
 } from "../../../Redux/AdminSlice/adminSlice";
@@ -18,6 +20,8 @@ const ProductForm = ({ productId }) => {
   const [editData, setEditData] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const { categories } = useSelector((state) => state.admin);
+  const [addCategory, setAddCategory] = useState(false);
+  const [category, setCategory] = useState();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -30,8 +34,15 @@ const ProductForm = ({ productId }) => {
       }
     };
     fetchProduct();
+    dispatch(fetchCategory());
   }, [productId]);
   console.log(productId);
+  console.log(categories);
+
+  const AddCategory = (category) => {
+    dispatch(addCategories(category));
+    setAddCategory(false);
+  };
 
   const initialValues = {
     title: editData.title || "",
@@ -176,6 +187,36 @@ const ProductForm = ({ productId }) => {
                 ))}
               </Field>
               <ErrorMessage className="error" name="category" component="div" />
+              <div className="d-flex flex-column">
+                <span>
+                  {!addCategory && (
+                    <button
+                      onClick={() => setAddCategory(true)}
+                      className=" border-0 rounded-2 bg-warning mt-2 px-2 float-end p-1"
+                    >
+                      Add category
+                    </button>
+                  )}
+                </span>
+
+                {addCategory && (
+                  <>
+                    <input
+                      className="mt-2 p-1 rounded-3 border-1 border-primary"
+                      type="text"
+                      onChange={(e) => setCategory(e.target.value)}
+                    />
+                    <span>
+                      <button
+                        onClick={() => AddCategory(category)}
+                        className="mt-2 border-0 rounded-2 float-end p-1 px-2 bg-success text-white"
+                      >
+                        submit
+                      </button>
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
 
             <div className="edit-input">

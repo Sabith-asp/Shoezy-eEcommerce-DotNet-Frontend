@@ -42,6 +42,22 @@ export const fetchCategory = createAsyncThunk(
   }
 );
 
+export const addCategories = createAsyncThunk(
+  "admin/fetchCategory",
+  async (category, thunkAPI) => {
+    try {
+      const response = await api.post(
+        `/api/Product/add-category?category=${category}`
+      );
+      thunkAPI.dispatch(fetchCategory());
+      toast.success(response?.data?.message);
+    } catch (error) {
+      toast.error("Adding category failed" || error?.response.data?.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const changeUserStatus = createAsyncThunk(
   "admin/changeUserStatus",
   async (userid, thunkAPI) => {
