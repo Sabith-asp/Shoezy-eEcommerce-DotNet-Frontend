@@ -12,6 +12,7 @@ import { fetchProducts } from "../../Redux/ProductSlice/productSlice";
 import { fetchOrders } from "../../Redux/OrderSlice/orderSlice";
 import { FaHeart } from "react-icons/fa6";
 import { fetchWishlist } from "../../Redux/WishlistSlice/WishlistSlice";
+import api from "../../api/api";
 const Navbar = () => {
   //   const { isUserLogin, setIsUserLogin } = useContext(DataContext);
   const { setCart, user } = useContext(CartContext);
@@ -50,6 +51,21 @@ const Navbar = () => {
     "Redux State: ",
     useSelector((state) => state)
   );
+
+  const [showList, setShowList] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchProducts, setsearchProducts] = useState([]);
+
+  const productss = ["Laptop", "Phone", "Tablet", "Headphones", "Smartwatch"];
+
+  const searchProduct = async () => {
+    const response = await api.get(`/api/Product/search?param=${searchTerm}`);
+    setShowList(true);
+    setsearchProducts(response?.data?.data);
+    setShowList(!showList);
+    setSearchTerm("");
+  };
+
   return (
     <nav className="navbar navbar-expand-md px-2 px-md-5 bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -165,6 +181,55 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
+            <div className="input-wrapper me-3">
+              <button className="icon" onClick={() => searchProduct()}>
+                <svg
+                  width="15px"
+                  height="15px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+                    stroke="black"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                  <path
+                    d="M22 22L20 20"
+                    stroke="black"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg>
+              </button>
+              <input
+                type="text"
+                name="text"
+                className="input"
+                placeholder="Search.."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+
+              {showList && (
+                <ul className="search-list">
+                  {searchProducts?.length > 0 ? (
+                    searchProducts?.map((product) => (
+                      <Link to={`product/detail/${product.id}`}>
+                        <li key={product.id}>{product.title}</li>
+                      </Link>
+                    ))
+                  ) : (
+                    <li>No results found</li>
+                  )}
+                </ul>
+              )}
+            </div>
+
             {login && (
               <button className="user rounded-3 border-0 p-2">
                 <FaUserCircle />
