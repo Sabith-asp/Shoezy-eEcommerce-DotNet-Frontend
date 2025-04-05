@@ -14,7 +14,7 @@ import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import AdminProducts from "./components/Admin/AdminProducts/AdminProducts";
 import Users from "./components/Admin/Users/Users";
 import Block from "./components/Admin/Block/Block";
-import ScrollToTop from "./components/scrollToTop/scrollToTop";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Orders from "./components/Admin/Orders/Orders";
 import { Provider } from "react-redux";
 import { store } from "./Redux/Store";
