@@ -22,12 +22,14 @@ const ProductForm = ({ productId }) => {
   const { categories } = useSelector((state) => state.admin);
   const [addCategory, setAddCategory] = useState(false);
   const [category, setCategory] = useState();
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
       if (!productId) return;
       try {
         const { data } = await api.get(`/api/Product/${productId}`);
+        setLoad(true);
         setEditData(data?.data);
       } catch (error) {
         toast.error("Error fetching product data");
