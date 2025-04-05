@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import React from "react";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -10,7 +11,6 @@ const ScrollToTop = () => {
       behavior: "smooth",
     });
   }, [pathname]);
-
   return null;
 };
 

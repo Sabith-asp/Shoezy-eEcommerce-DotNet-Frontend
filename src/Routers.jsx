@@ -14,13 +14,13 @@ import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import AdminProducts from "./components/Admin/AdminProducts/AdminProducts";
 import Users from "./components/Admin/Users/Users";
 import Block from "./components/Admin/Block/Block";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Orders from "./components/Admin/Orders/Orders";
 import { Provider } from "react-redux";
 import { store } from "./Redux/Store";
 import Address from "./components/Address/Address";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 const Routers = () => {
   return (
