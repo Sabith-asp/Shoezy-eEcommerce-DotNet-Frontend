@@ -1,6 +1,6 @@
-// src/ImageSlider.js
+// src/ImgSlider.js
 import React, { useState, useEffect } from "react";
-import "./ImageSlider.css";
+import "./ImgSlider.css";
 
 const images = [
   "https://images.puma.com/image/upload/f_auto,q_auto/global/380176/01/sv01/fnd/PNA/fmt/png/Cali-Star-Shoes",
@@ -8,7 +8,7 @@ const images = [
   "https://static.nike.com/a/images/f_png,q_auto,w_500,h_500,c_pad/pysqd15onjaeugu8mh4l/AH8050_005_A_PREM",
 ];
 
-const ImageSlider = () => {
+const ImgSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -38,4 +38,4 @@ const ImageSlider = () => {
   );
 };
 
-export default ImageSlider;
+export default ImgSlider;

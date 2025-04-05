@@ -1,6 +1,6 @@
 import React from "react";
 import "./Carousel.css";
-import ImageSlider from "../ImageSlider/ImageSlider";
+import ImgSlider from "../ImgSlider/ImgSlider";
 
 const Carousel = () => {
   return (
@@ -16,7 +16,7 @@ const Carousel = () => {
           </div>
         </div>
         <div className="right h-100 col-6 d-flex align-items-center">
-          <ImageSlider />
+          <ImgSlider />
         </div>
       </div>
     </section>
